@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CDSS Interactive Learning Module — Informatics in Pharmacy Practice</title>
+<style>
+:root{
+  --navy:#0A1628; --teal:#0E7490; --teal2:#14B8A6;
+  --amber:#F59E0B; --red:#DC2626; --green:#16A34A;
+  --purple:#7C3AED; --bg:#F0F6FA; --card:#fff;
+  --border:#DDE3EE; --text:#1E293B; --muted:#64748B;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Calibri,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.topbar{background:var(--navy);color:#fff;padding:0 22px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.3);}
+.topbar-l{display:flex;align-items:center;gap:10px;}
+.tb-badge{background:var(--teal2);color:var(--navy);font-weight:700;font-size:11px;padding:3px 9px;border-radius:20px;}
+.tb-badge2{background:var(--amber);color:var(--navy);font-weight:700;font-size:11px;padding:3px 9px;border-radius:20px;}
+.topbar h1{font-size:14px;font-weight:700;}
+.tb-r{display:flex;align-items:center;gap:8px;}
+.dl-btn{background:var(--teal2);color:#fff;border:none;padding:6px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;transition:background .2s;}
+.dl-btn:hover{background:var(--teal);}
+.prog-wrap{background:#0d2040;height:4px;}
+.prog-bar{height:100%;background:var(--amber);transition:width .4s;}
+.layout{display:flex;min-height:calc(100vh - 60px);}
+.sidebar{width:232px;background:#fff;border-right:1px solid var(--border);position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:10px 0;flex-shrink:0;}
+.sid-ttl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:0 12px 6px;}
+.nav-i{display:flex;align-items:center;gap:7px;padding:7px 12px;cursor:pointer;font-size:12.5px;border-left:3px solid transparent;transition:all .15s;line-height:1.3;}
+.nav-i:hover{background:#f0f6fa;color:var(--navy);}
+.nav-i.active{background:#e8f4f8;color:var(--navy);border-left-color:var(--teal);font-weight:600;}
+.nav-i.done{color:var(--green);}
+.nav-dot{width:20px;height:20px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;color:var(--muted);}
+.nav-i.active .nav-dot{background:var(--teal);border-color:var(--teal);color:#fff;}
+.nav-i.done .nav-dot{background:var(--green);border-color:var(--green);color:#fff;}
+.nav-sep{height:1px;background:var(--border);margin:5px 12px;}
+main{flex:1;padding:22px 28px;max-width:940px;}
+.sec{display:none;animation:fadeIn .3s ease;}
+.sec.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+.card{background:var(--card);border-radius:10px;padding:18px;margin-bottom:14px;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.card h3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--teal2);}
+.card p{font-size:13.5px;line-height:1.7;margin-bottom:7px;}
+.sec-tag{font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.sec-hdr h2{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:5px;}
+.sec-hdr p{color:var(--muted);font-size:13.5px;line-height:1.6;margin-bottom:18px;}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#0a3555 100%);color:#fff;border-radius:12px;padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden;}
+.hero::before{content:"💊";position:absolute;right:20px;top:12px;font-size:68px;opacity:.08;}
+.hero .badge{background:var(--amber);color:var(--navy);padding:3px 11px;border-radius:20px;font-size:10px;font-weight:700;display:inline-block;margin-bottom:10px;}
+.hero .badge2{background:var(--teal2);color:var(--navy);padding:3px 11px;border-radius:20px;font-size:10px;font-weight:700;display:inline-block;margin-bottom:10px;margin-left:6px;}
+.hero h2{font-size:22px;font-weight:800;margin-bottom:5px;}
+.hero p{opacity:.85;font-size:13px;line-height:1.6;margin-bottom:10px;}
+.hero-meta{display:flex;flex-wrap:wrap;gap:12px;}
+.hero-meta span{font-size:11.5px;opacity:.78;display:flex;align-items:center;gap:4px;}
+.tbl-wrap{overflow-x:auto;margin:10px 0;border-radius:8px;border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{background:var(--navy);color:#fff;padding:8px 11px;text-align:left;font-size:11.5px;}
+tbody tr:nth-child(even){background:#f8faff;}
+tbody td{padding:7px 11px;border-bottom:1px solid #eef1f8;vertical-align:top;line-height:1.5;}
+tbody tr:last-child td{border-bottom:none;}
+.pearl{background:linear-gradient(135deg,#eff6ff,#eef3ff);border-left:4px solid var(--navy);border-radius:0 8px 8px 0;padding:11px 14px;margin:10px 0;}
+.pearl p{font-size:13px;line-height:1.65;color:var(--navy);font-style:italic;}
+.p-lbl{font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.warn{background:#FEF3C7;border-left:4px solid var(--amber);}
+.warn p{color:#92400E;font-style:normal;}
+.danger{background:#FEF2F2;border-left:4px solid var(--red);}
+.danger p{color:#7F1D1D;font-style:normal;}
+.tip{background:#F0FDF4;border-left:4px solid var(--green);}
+.tip p{color:#166534;font-style:normal;}
+/* Code blocks */
+.code-block{background:#0F172A;border-radius:8px;padding:14px 18px;margin:10px 0;font-family:'Courier New',monospace;font-size:12.5px;color:#A5F3FC;line-height:1.7;overflow-x:auto;}
+.code-block .kw{color:#F59E0B;font-weight:700;}
+.code-block .slot{color:#14B8A6;font-weight:700;}
+.code-block .comment{color:#64748B;font-style:italic;}
+.code-block .val{color:#86EFAC;}
+.code-block .alert-txt{color:#FCA5A5;}
+/* Two-col code with annotation */
+.code-annotated{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:9px;overflow:hidden;margin:12px 0;}
+.code-ann-code{background:#0F172A;padding:14px;font-family:'Courier New',monospace;font-size:11.5px;color:#A5F3FC;line-height:1.8;}
+.code-ann-notes{background:#F8FAFF;padding:14px;}
+.ann-item{padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;line-height:1.5;}
+.ann-item:last-child{border-bottom:none;}
+.ann-slot{font-weight:700;font-size:10px;padding:2px 7px;border-radius:10px;display:inline-block;margin-bottom:2px;}
+/* Exercises */
+.exercise{background:linear-gradient(135deg,#F0FDF4,#ECFEFF);border:1px solid #A7F3D0;border-radius:9px;padding:15px;margin:12px 0;}
+.ex-tag{font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;margin-bottom:4px;}
+.ex-q{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px;line-height:1.5;}
+/* Matching */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+.match-col{display:flex;flex-direction:column;gap:7px;}
+.match-item{padding:9px 13px;border-radius:7px;font-size:13px;border:1.5px solid var(--border);background:#fff;cursor:pointer;transition:all .15s;user-select:none;}
+.match-item.selected{border-color:var(--teal);background:#E0F2FE;}
+.match-item.matched-correct{border-color:var(--green);background:#D1FAE5;cursor:default;}
+.match-item.matched-wrong{border-color:var(--red);background:#FEE2E2;}
+.match-item .item-lbl{font-size:9.5px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:2px;}
+/* MCQ */
+.case-box{background:linear-gradient(135deg,#F0FDF4,#F0F9FF);border:1px solid #A7F3D0;border-radius:9px;padding:14px;margin-bottom:12px;}
+.q-num{font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;margin-bottom:3px;}
+.vignette{background:rgba(255,255,255,.8);border-radius:7px;padding:12px;font-size:13px;line-height:1.7;color:#134E4A;margin-bottom:12px;border-left:3px solid var(--teal);}
+.q-stem{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px;line-height:1.5;}
+.opts{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border:1.5px solid var(--border);border-radius:7px;cursor:pointer;transition:all .15s;font-size:13.5px;line-height:1.5;background:#fff;}
+.opt:hover{border-color:var(--teal);background:#F0FDFA;}
+.opt input{margin-top:2px;flex-shrink:0;accent-color:var(--teal);}
+.opt.correct{border-color:var(--green);background:#F0FDF4;}
+.opt.wrong{border-color:var(--red);background:#FEF2F2;}
+.fb{margin-top:10px;padding:12px;border-radius:8px;display:none;font-size:13px;line-height:1.6;}
+.fb.show{display:block;}
+.fb.ok{background:#F0FDF4;color:#166534;border:1px solid #BBF7D0;}
+.fb.nope{background:#FEF2F2;color:#991B1B;border:1px solid #FECACA;}
+.keypoint{background:linear-gradient(135deg,var(--navy),#0a3555);color:#fff;border-radius:7px;padding:11px 14px;margin-top:8px;font-size:12.5px;line-height:1.6;display:none;}
+.keypoint.show{display:block;}
+.keypoint strong{color:var(--amber);}
+.submit-q-btn{background:var(--teal);color:#fff;border:none;padding:8px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;}
+.submit-q-btn:hover{background:var(--navy);}
+.marks-badge{display:inline-flex;align-items:center;background:var(--navy);color:#fff;padding:4px 11px;border-radius:16px;font-size:11px;font-weight:600;margin-left:8px;opacity:0;transition:opacity .3s;}
+.marks-badge.show{opacity:1;}
+.marks-badge.correct-mark{background:var(--green);}
+.marks-badge.wrong-mark{background:var(--red);}
+/* q-tracker */
+.q-tracker{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:16px;}
+.q-dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;cursor:pointer;background:#fff;color:var(--muted);transition:all .2s;}
+.q-dot.answered-correct{border-color:var(--green);background:var(--green);color:#fff;}
+.q-dot.answered-wrong{border-color:var(--red);background:var(--red);color:#fff;}
+/* Submission */
+.submit-panel{background:linear-gradient(135deg,var(--navy),#0a3555);color:#fff;border-radius:12px;padding:26px;margin-bottom:18px;text-align:center;}
+.score-big{font-size:52px;font-weight:900;color:var(--amber);line-height:1;}
+.score-sub{font-size:14px;opacity:.8;margin:5px 0 18px;}
+.score-detail{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0;}
+.score-item{background:rgba(255,255,255,.1);border-radius:9px;padding:11px;}
+.score-item .val{font-size:20px;font-weight:700;color:var(--amber);}
+.score-item .lbl{font-size:11px;opacity:.7;margin-top:2px;}
+.submit-final-btn{background:var(--amber);color:var(--navy);border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
+.submit-final-btn:hover{background:#D97706;color:#fff;}
+.submit-final-btn:disabled{background:#94A3B8;cursor:not-allowed;color:#fff;}
+.status-msg{font-size:13px;margin-top:8px;padding:8px 12px;border-radius:7px;display:none;}
+.status-msg.ok{background:#D1FAE5;color:#065F46;display:block;}
+.status-msg.err{background:#FEE2E2;color:#991B1B;display:block;}
+.status-msg.pending{background:#FEF3C7;color:#92400E;display:block;}
+/* Pill badges */
+.pill{display:inline-block;padding:2px 9px;border-radius:16px;font-size:11.5px;font-weight:600;margin:2px;}
+.p-green{background:#D1FAE5;color:#065F46;}
+.p-red{background:#FEE2E2;color:#991B1B;}
+.p-blue{background:#DBEAFE;color:#1E40AF;}
+.p-amber{background:#FEF3C7;color:#92400E;}
+.p-purple{background:#EDE9FE;color:#5B21B6;}
+.p-teal{background:#CCFBF1;color:#0F766E;}
+/* Concept grid */
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:12px 0;}
+.concept-card{background:linear-gradient(135deg,var(--navy),#0a3555);color:#fff;border-radius:9px;padding:14px;}
+.concept-card h4{font-size:12.5px;font-weight:700;margin-bottom:6px;color:var(--amber);}
+.concept-card p{font-size:12px;line-height:1.6;opacity:.9;}
+/* Alert tier visual */
+.tier-stack{display:flex;flex-direction:column;gap:8px;margin:12px 0;}
+.tier-item{display:flex;align-items:center;gap:14px;padding:11px 14px;border-radius:8px;border:1px solid;}
+.tier-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;}
+/* Slot diagram */
+.slot-flow{display:flex;align-items:center;gap:0;margin:14px 0;overflow-x:auto;}
+.slot-box{flex:1;min-width:100px;padding:10px 8px;text-align:center;font-size:11px;font-weight:700;}
+.slot-arrow{font-size:18px;color:var(--teal);flex-shrink:0;padding:0 4px;}
+/* Registration */
+.reg-form{background:var(--card);border-radius:12px;padding:28px;border:1px solid var(--border);max-width:500px;margin:0 auto;}
+.reg-form h3{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:16px;text-align:center;}
+.form-g{margin-bottom:14px;}
+.form-g label{display:block;font-size:12.5px;font-weight:600;color:var(--navy);margin-bottom:5px;}
+.form-g input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:13.5px;font-family:inherit;transition:border-color .2s;}
+.form-g input:focus{outline:none;border-color:var(--teal);}
+.start-btn{width:100%;background:var(--navy);color:#fff;border:none;padding:12px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;margin-top:6px;transition:background .2s;}
+.start-btn:hover{background:var(--teal);}
+/* nav buttons */
+.nav-btns{display:flex;justify-content:space-between;margin-top:22px;padding-top:16px;border-top:1px solid var(--border);}
+.nav-btn{background:var(--navy);color:#fff;border:none;padding:9px 20px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;}
+.nav-btn:hover{background:var(--teal);}
+/* Arden fill-in exercise */
+.fill-box{background:#0F172A;border-radius:8px;padding:14px;margin:10px 0;font-family:'Courier New',monospace;font-size:12.5px;line-height:2;}
+.fill-blank{display:inline-block;border-bottom:2px solid var(--teal2);min-width:80px;color:var(--teal2);background:transparent;font-family:'Courier New',monospace;font-size:12.5px;padding:0 4px;outline:none;}
+.fill-blank.correct{border-color:var(--green);color:#86EFAC;}
+.fill-blank.wrong{border-color:var(--red);color:#FCA5A5;}
+.check-fill-btn{background:var(--purple);color:#fff;border:none;padding:8px 18px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;margin-top:8px;}
+/* Reg form */
+@media(max-width:768px){.sidebar{display:none;}main{padding:14px;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-l">
+    <span class="tb-badge">CDSS</span>
+    <span class="tb-badge2">PHARMACY INFORMATICS</span>
+    <h1>Interactive Learning Module</h1>
+  </div>
+  <div class="tb-r">
+    <span id="student-display" style="font-size:12px;opacity:.75;"></span>
+    <button class="dl-btn" onclick="downloadDocx()">⬇ Download Reference</button>
+  </div>
+</div>
+<div class="prog-wrap"><div class="prog-bar" id="pbar" style="width:0%"></div></div>
+
+<div class="layout">
+<aside class="sidebar">
+  <div class="sid-ttl">Navigation</div>
+  <div class="nav-i active" onclick="goTo(0)" id="nav-0"><div class="nav-dot">🏠</div><span>Registration</span></div>
+  <div class="nav-sep"></div>
+  <div class="sid-ttl">Learning Content</div>
+  <div class="nav-i" onclick="goTo(1)" id="nav-1"><div class="nav-dot">1</div><span>CDSS Foundations</span></div>
+  <div class="nav-i" onclick="goTo(2)" id="nav-2"><div class="nav-dot">2</div><span>Architecture & Types</span></div>
+  <div class="nav-i" onclick="goTo(3)" id="nav-3"><div class="nav-dot">3</div><span>Arden Syntax</span></div>
+  <div class="nav-i" onclick="goTo(4)" id="nav-4"><div class="nav-dot">4</div><span>Alert Hierarchy</span></div>
+  <div class="nav-sep"></div>
+  <div class="sid-ttl">Practical Exercises</div>
+  <div class="nav-i" onclick="goTo(5)" id="nav-5"><div class="nav-dot">⚡</div><span>Matching Exercise</span></div>
+  <div class="nav-i" onclick="goTo(6)" id="nav-6"><div class="nav-dot">✍</div><span>Arden Fill-In Cases</span></div>
+  <div class="nav-sep"></div>
+  <div class="sid-ttl">Assessment (10 MCQs)</div>
+  <div class="nav-i" onclick="goTo(7)" id="nav-7"><div class="nav-dot">📝</div><span>Cases 1–5</span></div>
+  <div class="nav-i" onclick="goTo(8)" id="nav-8"><div class="nav-dot">📝</div><span>Cases 6–10</span></div>
+  <div class="nav-sep"></div>
+  <div class="nav-i" onclick="goTo(9)" id="nav-9"><div class="nav-dot">📤</div><span>Submit & Results</span></div>
+</aside>
+
+<main>
+
+<!-- ══ SEC 0: REGISTRATION ══ -->
+<div class="sec active" id="sec-0">
+  <div class="hero">
+    <div class="badge">Informatics in Pharmacy Practice</div>
+    <div class="badge2">5th Year B.Pharm</div>
+    <h2>Clinical Decision Support Systems</h2>
+    <p>Interactive Learning &amp; Assessment Module · Dr. Samar J. Melhem | School of Pharmacy, University of Jordan</p>
+    <div class="hero-meta">
+      <span>📚 4 Learning Sections</span>
+      <span>⚡ Matching + Fill-In Exercises</span>
+      <span>📝 10 Clinical Assessment Cases</span>
+      <span>🏆 10 Marks Total</span>
+      <span>⏱ ~90 Minutes</span>
+    </div>
+  </div>
+  <div class="reg-form">
+    <h3>🎓 Student Registration</h3>
+    <div class="form-g"><label>Full Name *</label><input type="text" id="stu-name" placeholder="e.g., Ahmad Al-Hassan"/></div>
+    <div class="form-g"><label>Student ID *</label><input type="text" id="stu-id" placeholder="e.g., 202212345"/></div>
+    <div class="form-g"><label>Section / Group</label><input type="text" id="stu-section" placeholder="e.g., Section A"/></div>
+    <div class="form-g"><label>Email (for results)</label><input type="email" id="stu-email" placeholder="student@ju.edu.jo"/></div>
+    <p style="font-size:11.5px;color:var(--muted);margin-bottom:12px;line-height:1.5;">⚠️ Complete all 4 learning sections, then the practical exercises, before attempting the 10 MCQ cases. Your email will receive automatic grading + feedback.</p>
+    <button class="start-btn" onclick="startModule()">▶ Begin Module</button>
+    <div id="reg-err" style="color:var(--red);font-size:13px;margin-top:7px;display:none;"></div>
+  </div>
+</div>
+
+<!-- ══ SEC 1: CDSS FOUNDATIONS ══ -->
+<div class="sec" id="sec-1">
+  <div class="sec-tag">Learning Section 1</div>
+  <div class="sec-hdr"><h2>CDSS Foundations — What, Why &amp; How</h2><p>Understanding CDSS from first principles — no informatics background needed.</p></div>
+
+  <div class="card">
+    <h3>🔍 What is a CDSS?</h3>
+    <p>A <strong>Clinical Decision Support System (CDSS)</strong> is a computer-based system that provides healthcare professionals with <strong>patient-specific assessments</strong> and <strong>evidence-based recommendations</strong> to enhance clinical decision-making <strong>at the point of care</strong>.</p>
+    <div class="concept-grid">
+      <div class="concept-card"><h4>🎯 Patient-Specific</h4><p>Based on THIS patient's actual data — not generic population advice. The system reads the individual's labs, allergies, and medications.</p></div>
+      <div class="concept-card"><h4>📋 Evidence-Based</h4><p>Recommendations are grounded in validated clinical guidelines, not guesswork. The "knowledge base" encodes expert clinical reasoning.</p></div>
+      <div class="concept-card"><h4>⚡ Point-of-Care</h4><p>Delivered exactly when the clinician needs it — during active workflow. A drug interaction alert fires when the order is entered, not 3 hours later.</p></div>
+      <div class="concept-card"><h4>🤝 Enhances Judgment</h4><p>CDSS SUPPORTS — it does NOT REPLACE — the pharmacist's clinical expertise. The clinician always makes the final decision.</p></div>
+    </div>
+    <div class="pearl danger"><div class="p-lbl" style="color:var(--red);">⚠️ Most Common Exam Mistake</div><p style="color:#7F1D1D;font-style:normal;">Students say CDSS "replaces" clinical judgment. It never does. CDSS provides a recommendation — <strong>the clinician always decides</strong>. This distinction is tested frequently.</p></div>
+  </div>
+
+  <div class="card">
+    <h3>🏥 Why Does Pharmacy Need CDSS?</h3>
+    <p>Modern pharmacy practice involves complex polypharmacy, renal/hepatic adjustments, and thousands of drug interactions. No human can hold all of this in working memory simultaneously. CDSS provides a real-time safety net during medication ordering, dispensing, and monitoring.</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Clinical Problem</th><th>Without CDSS</th><th>With CDSS</th></tr></thead>
+      <tbody>
+        <tr><td>Warfarin + TMP/SMX prescribed</td><td>Pharmacist may miss if reviewing 40 orders per hour</td><td>Automatic interruptive alert at order entry — cannot proceed silently</td></tr>
+        <tr><td>Gentamicin in CrCl &lt; 30 patient</td><td>Standard dose entered — nephrotoxicity risk</td><td>Dose adjustment alert fires automatically when order is entered</td></tr>
+        <tr><td>Penicillin allergy + amoxicillin order</td><td>Allergy may not be visible in current workflow</td><td>Hard Stop — order is blocked immediately</td></tr>
+        <tr><td>K⁺ = 6.4 with ACE inhibitor continuing</td><td>Lab result may not be linked to current medication</td><td>CDSS links lab to active medication → Hard Stop alert fires</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>💡 Clinical Logic vs MLM vs Arden Syntax — Three Levels</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Level</th><th>What It Is</th><th>Pharmacy Analogy</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Clinical Logic</strong></td><td>Natural language reasoning in the clinician's mind. The WHAT. "If allergy exists and drug ordered, alert."</td><td>A pharmacist thinking: "This patient is on warfarin, TMP/SMX is being ordered — I need to check the INR"</td></tr>
+        <tr><td><strong>MLM (Medical Logic Module)</strong></td><td>A standardised, portable unit of clinical knowledge designed for sharing between institutions. The HOW.</td><td>A written standard operating procedure (SOP) titled "Warfarin-TMP/SMX Interaction Check" — complete and transferable</td></tr>
+        <tr><td><strong>Arden Syntax</strong></td><td>The formal computer language used to encode MLMs into executable rules. The LANGUAGE.</td><td>That SOP translated into code the computer can actually run and execute in real-time</td></tr>
+      </tbody>
+    </table></div>
+    <div class="pearl"><div class="p-lbl">🔑 Exam Tip</div><p>Think of it as: Clinical Logic = the idea · MLM = the structured document · Arden Syntax = the code. An MLM IS the concept; Arden Syntax IS the language used to write it. They are NOT the same thing — this distinction is exam-tested.</p></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="goTo(0)">← Registration</button>
+    <button class="nav-btn" onclick="goTo(2)">Architecture & Types →</button>
+  </div>
+</div>
+
+<!-- ══ SEC 2: ARCHITECTURE & TYPES ══ -->
+<div class="sec" id="sec-2">
+  <div class="sec-tag">Learning Section 2</div>
+  <div class="sec-hdr"><h2>CDSS Architecture &amp; Types</h2><p>How the system is built, and the key distinctions every pharmacy student must know.</p></div>
+
+  <div class="card">
+    <h3>⚙️ The Four-Component Architecture</h3>
+    <p>Every CDSS processes information through four sequential components. Understanding this flow helps you understand what can go wrong and where the pharmacist adds value.</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>#</th><th>Component</th><th>What It Contains / Does</th><th>Pharmacy Relevance</th></tr></thead>
+      <tbody>
+        <tr style="background:#F0FDF4;"><td><strong style="color:var(--green);">1</strong></td><td><strong>INPUT</strong></td><td>Patient demographics, allergies, current medications, lab results, vital signs, order history</td><td>Garbage in = garbage out. If allergy not documented in EHR, CDSS cannot detect it</td></tr>
+        <tr><td><strong style="color:var(--teal);">2</strong></td><td><strong>PROCESSING ENGINE</strong></td><td>Applies IF/THEN rules to input data in real-time. Compares patient data against knowledge base.</td><td>This is where Arden Syntax rules run. Speed is critical — alert must fire before order is finalised</td></tr>
+        <tr style="background:#FFF7ED;"><td><strong style="color:#92400E;">3</strong></td><td><strong>OUTPUT</strong></td><td>Critical alerts, advisory reminders, evidence-based recommendations, dosing suggestions</td><td>Output quality = clinical usefulness. Vague alerts cause fatigue; specific alerts cause action</td></tr>
+        <tr><td><strong style="color:var(--navy);">4</strong></td><td><strong>CLINICAL DECISION</strong></td><td>Clinician reviews output and acts. Override with documented justification if needed.</td><td>Pharmacist validates clinical appropriateness. Documents overrides in patient record.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>🧠 Knowledge-Based vs Non-Knowledge-Based CDSS</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Feature</th><th>Knowledge-Based</th><th>Non-Knowledge-Based (AI/ML)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Rules source</strong></td><td>Explicit IF-THEN rules written by clinical experts</td><td>Machine learning patterns derived from large datasets</td></tr>
+        <tr><td><strong>Transparency</strong></td><td>✅ Transparent — rules can be read, audited, changed</td><td>⚠️ "Black box" — difficult to explain individual decisions</td></tr>
+        <tr><td><strong>Pharmacy examples</strong></td><td>Drug-drug interaction rules, allergy checking, renal dose algorithms, Arden Syntax rules</td><td>ADR prediction from patient history, ML-based adherence modelling</td></tr>
+        <tr><td><strong>Limitation</strong></td><td>Requires manual updates when guidelines change</td><td>Requires large training datasets; may not generalise</td></tr>
+        <tr><td><strong>WHAT YOU NEED TO KNOW</strong></td><td colspan="2">This course focuses on <strong>knowledge-based CDSS</strong> — specifically Arden Syntax. Non-knowledge-based (ML) is introduced in Section 4 as a contemporary development.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>🔔 Passive vs Active CDSS</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th></th><th>Passive CDSS</th><th>Active CDSS</th></tr></thead>
+      <tbody>
+        <tr><td><strong>How it works</strong></td><td>User must actively request information — on demand</td><td>System proactively fires alerts — automatic</td></tr>
+        <tr><td><strong>Examples</strong></td><td>Micromedex, UpToDate, dosing calculators, drug interaction databases</td><td>Drug-drug interaction pop-ups, allergy hard stops, critical lab value alerts</td></tr>
+        <tr><td><strong>Interruption rate</strong></td><td>Low — user controls when to query</td><td>High — fires at point of care</td></tr>
+        <tr><td><strong>Patient safety role</strong></td><td>Supports informed decision-making</td><td>Prevents errors by intercepting orders in real-time</td></tr>
+      </tbody>
+    </table></div>
+    <div class="pearl"><div class="p-lbl">🔑 Exam Tip</div><p>Active CDSS is the focus of patient safety initiatives — it intercepts before an error occurs. Passive CDSS is reactive — it helps when you already know to look. Most alert fatigue research focuses on active CDSS because it interrupts workflow.</p></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="goTo(1)">← CDSS Foundations</button>
+    <button class="nav-btn" onclick="goTo(3)">Arden Syntax →</button>
+  </div>
+</div>
+
+<!-- ══ SEC 3: ARDEN SYNTAX ══ -->
+<div class="sec" id="sec-3">
+  <div class="sec-tag">Learning Section 3</div>
+  <div class="sec-hdr"><h2>Arden Syntax — The Language of Clinical Rules</h2><p>The standardised language for encoding clinical knowledge into computer-executable rules.</p></div>
+
+  <div class="card">
+    <h3>📖 The Five Slots — Overview</h3>
+    <p>Every Arden Syntax rule is divided into exactly five sections called <strong>slots</strong>. Think of each slot as answering a specific question:</p>
+    <div class="slot-flow">
+      <div class="slot-box" style="background:#F1F5F9;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:var(--muted);">MAINTENANCE</div><div style="font-size:10.5px;color:var(--navy);">Who wrote it?</div></div>
+      <div class="slot-arrow">→</div>
+      <div class="slot-box" style="background:#CCFBF1;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:#0F766E;">DATA</div><div style="font-size:10.5px;color:var(--navy);">What data needed?</div></div>
+      <div class="slot-arrow">→</div>
+      <div class="slot-box" style="background:#EDE9FE;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:var(--purple);">EVOKE</div><div style="font-size:10.5px;color:var(--navy);">When does it fire?</div></div>
+      <div class="slot-arrow">→</div>
+      <div class="slot-box" style="background:#FEF2F2;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:var(--red);">LOGIC</div><div style="font-size:10.5px;color:var(--navy);">What does it check?</div></div>
+      <div class="slot-arrow">→</div>
+      <div class="slot-box" style="background:#F0FDF4;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:var(--green);">ACTION</div><div style="font-size:10.5px;color:var(--navy);">What alert fires?</div></div>
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Slot</th><th>Purpose</th><th>Key Syntax</th><th>Critical Rule</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pill" style="background:#F1F5F9;color:var(--muted);">MAINTENANCE</span></td><td>Rule metadata — identity card. Does NOT affect execution.</td><td>title: ... version: ...</td><td>This slot never changes what the rule does. It's documentation only.</td></tr>
+        <tr><td><span class="pill p-teal">DATA</span></td><td>Retrieves patient information from EHR</td><td>variable := read last [source]</td><td><strong>:=</strong> assigns data to a variable. 'read last' = most recent value.</td></tr>
+        <tr><td><span class="pill p-purple">EVOKE</span></td><td>Defines WHEN the rule activates</td><td>evoke: new_medication_order</td><td><strong>Most critical slot.</strong> Without EVOKE the rule NEVER runs.</td></tr>
+        <tr><td><span class="pill p-red">LOGIC</span></td><td>IF/ELSE IF/ELSE decision chain</td><td>if [condition] then conclude true else conclude false endif</td><td><strong>endif is mandatory.</strong> Most critical condition FIRST.</td></tr>
+        <tr><td><span class="pill p-green">ACTION</span></td><td>Output — alert text to display</td><td>write alert '[message]'</td><td>Only runs if conclude true was reached in LOGIC.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>💉 Worked Example 1 — Gentamicin Renal Dose Adjustment</h3>
+    <p>Read this rule using the 4-step method: <strong>EVOKE → DATA → LOGIC → ACTION</strong></p>
+    <div class="code-annotated">
+      <div class="code-ann-code">
+<span style="color:var(--muted);">maintenance:</span><br>
+&nbsp;&nbsp;<span style="color:#94A3B8;">title:</span> <span style="color:#86EFAC;">Gentamicin Renal Alert</span><br>
+&nbsp;&nbsp;<span style="color:#94A3B8;">version:</span> <span style="color:#86EFAC;">1.0</span><br>
+<br>
+<span style="color:var(--teal2);">data:</span><br>
+&nbsp;&nbsp;<span style="color:#A5F3FC;">crcl</span> := read last <span style="color:#86EFAC;">lab_result</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;where test = <span style="color:#FCA5A5;">'CrCl'</span><br>
+&nbsp;&nbsp;<span style="color:#A5F3FC;">gent</span> := read new <span style="color:#86EFAC;">medication</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;where drug = <span style="color:#FCA5A5;">'gentamicin'</span><br>
+<br>
+<span style="color:#C4B5FD;">evoke:</span>&nbsp;&nbsp; <span style="color:#A5F3FC;">gent</span><br>
+<br>
+<span style="color:#FCA5A5;">logic:</span><br>
+&nbsp;&nbsp;<span style="color:#F59E0B;">if</span> <span style="color:#A5F3FC;">crcl</span> &lt; 30 <span style="color:#F59E0B;">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#F59E0B;">conclude true</span><br>
+&nbsp;&nbsp;<span style="color:#F59E0B;">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#F59E0B;">conclude false</span><br>
+&nbsp;&nbsp;<span style="color:#F59E0B;">endif</span><br>
+<br>
+<span style="color:#86EFAC;">action:</span><br>
+&nbsp;&nbsp;write alert <span style="color:#FCA5A5;">'Renal dose adjustment</span><br>
+&nbsp;&nbsp;<span style="color:#FCA5A5;">required: CrCl &lt; 30 mL/min'</span>
+      </div>
+      <div class="code-ann-notes">
+        <div class="ann-item"><span class="ann-slot" style="background:#F1F5F9;color:var(--muted);">MAINTENANCE</span><br>Metadata — does not affect execution. Just identifies the rule.</div>
+        <div class="ann-item"><span class="ann-slot" style="background:#CCFBF1;color:#0F766E;">DATA</span><br><strong>crcl :=</strong> reads the most recent CrCl lab result.<br><strong>gent :=</strong> captures the gentamicin order being entered right now.</div>
+        <div class="ann-item"><span class="ann-slot" style="background:#EDE9FE;color:var(--purple);">EVOKE</span><br>Rule fires ONLY when gentamicin is ordered — not on every medication entry. This prevents unnecessary alerts.</div>
+        <div class="ann-item"><span class="ann-slot" style="background:#FEF2F2;color:var(--red);">LOGIC</span><br>CrCl &lt; 30 = dose adjustment needed → <strong>conclude true</strong> fires alert.<br><strong>endif</strong> is mandatory — rule breaks without it.</div>
+        <div class="ann-item"><span class="ann-slot" style="background:#F0FDF4;color:var(--green);">ACTION</span><br>Alert text is specific and actionable. Always include the value that triggered the alert.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🩺 Worked Example 2 — Warfarin + TMP/SMX (Major DDI)</h3>
+    <p><strong>Clinical context:</strong> 74-year-old on stable warfarin. TMP/SMX prescribed for UTI. TMP/SMX inhibits warfarin metabolism → 2–5× INR elevation risk. INR monitoring needed within 48–72h.</p>
+    <div class="code-block">
+<span class="slot">maintenance:</span><br>
+&nbsp;&nbsp;title: Warfarin-TMP/SMX Interaction Alert<br>
+&nbsp;&nbsp;version: 1.0<br>
+<br>
+<span class="slot">data:</span><br>
+&nbsp;&nbsp;current_warfarin := read active medications<br>
+&nbsp;&nbsp;&nbsp;&nbsp;where drug_name = <span class="val">'warfarin'</span><br>
+&nbsp;&nbsp;new_tmpsmx := read new medication<br>
+&nbsp;&nbsp;&nbsp;&nbsp;where drug_name = <span class="val">'trimethoprim-sulfamethoxazole'</span><br>
+<br>
+<span class="slot">evoke:</span>&nbsp;&nbsp; new_tmpsmx<br>
+<br>
+<span class="slot">logic:</span><br>
+&nbsp;&nbsp;<span class="kw">if</span> current_warfarin <span class="kw">is present</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">and</span> new_tmpsmx <span class="kw">is present</span> <span class="kw">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">conclude true</span><br>
+&nbsp;&nbsp;<span class="kw">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">conclude false</span><br>
+&nbsp;&nbsp;<span class="kw">endif</span><br>
+<br>
+<span class="slot">action:</span><br>
+&nbsp;&nbsp;write alert <span class="alert-txt">'MAJOR DDI: TMP/SMX inhibits warfarin metabolism.</span><br>
+&nbsp;&nbsp;<span class="alert-txt">Expected INR increase: 2-5x. Monitor INR within 48-72h.</span><br>
+&nbsp;&nbsp;<span class="alert-txt">Consider warfarin dose reduction of 25-50%.'</span>
+    </div>
+    <div class="pearl warn"><div class="p-lbl" style="color:#B45309;">📝 Annotation: is present</div><p>The operator <strong>is present</strong> checks whether a medication exists in the patient's active medication list. It returns true/false — exactly what the LOGIC slot needs. It does NOT check dosage — just existence.</p></div>
+  </div>
+
+  <div class="card">
+    <h3>⚡ Worked Example 3 — Multi-Tier K⁺ / ACE Inhibitor Rule</h3>
+    <div class="code-block">
+<span class="slot">data:</span><br>
+&nbsp;&nbsp;patient_k := read last <span class="val">serum_potassium</span><br>
+&nbsp;&nbsp;k_order   := read new medication<br>
+&nbsp;&nbsp;&nbsp;&nbsp;where drug_class=<span class="val">'potassium_supplement'</span><br>
+<br>
+<span class="slot">evoke:</span>&nbsp;&nbsp; k_order <span class="kw">or</span> patient_k<br>
+<br>
+<span class="slot">logic:</span><br>
+&nbsp;&nbsp;<span class="kw">if</span> patient_k &gt; 6.0 <span class="kw">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;status := <span class="alert-txt">'HARD STOP'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">conclude true</span><br>
+&nbsp;&nbsp;<span class="kw">else if</span> patient_k &gt; 5.5 <span class="kw">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;status := <span class="alert-txt">'HIGH ALERT'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">conclude true</span><br>
+&nbsp;&nbsp;<span class="kw">else if</span> patient_k &lt; 3.5 <span class="kw">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;status := <span class="alert-txt">'ADVISORY: Hypokalemia'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">conclude true</span><br>
+&nbsp;&nbsp;<span class="kw">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">conclude false</span><br>
+&nbsp;&nbsp;<span class="kw">endif</span><br>
+<br>
+<span class="slot">action:</span><br>
+&nbsp;&nbsp;write alert status
+    </div>
+    <div class="pearl danger"><div class="p-lbl" style="color:var(--red);">🚨 Critical Ordering Rule</div><p style="color:#7F1D1D;font-style:normal;">The most critical condition (K⁺ &gt; 6.0 — life threatening) MUST be checked FIRST. If you check K⁺ &gt; 5.5 first, a patient with K⁺ = 6.4 would match the wrong tier. This is the most commonly tested Arden Syntax error.</p></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="goTo(2)">← Architecture & Types</button>
+    <button class="nav-btn" onclick="goTo(4)">Alert Hierarchy →</button>
+  </div>
+</div>
+
+<!-- ══ SEC 4: ALERT HIERARCHY ══ -->
+<div class="sec" id="sec-4">
+  <div class="sec-tag">Learning Section 4</div>
+  <div class="sec-hdr"><h2>Alert Hierarchy, Fatigue &amp; Pharmacist Role</h2><p>Not all alerts are equal — the tier determines how CDSS interrupts clinical workflow.</p></div>
+
+  <div class="card">
+    <h3>🚦 The Four Alert Tiers</h3>
+    <div class="tier-stack">
+      <div class="tier-item" style="border-color:#DC2626;background:#FEF2F2;">
+        <div class="tier-num" style="background:#DC2626;">1</div>
+        <div><strong style="color:#DC2626;">TIER 1: HARD STOP (Blocker)</strong><br><span style="font-size:13px;color:#7F1D1D;">Completely prevents proceeding. Reserved ONLY for immediate life-threatening scenarios. Cannot override without clinical escalation. E.g. K⁺ ≥ 6.0, documented anaphylaxis allergy ordered.</span></div>
+      </div>
+      <div class="tier-item" style="border-color:#F59E0B;background:#FFF7ED;">
+        <div class="tier-num" style="background:#F59E0B;">2</div>
+        <div><strong style="color:#92400E;">TIER 2: HIGH / INTERRUPTIVE ALERT</strong><br><span style="font-size:13px;color:#78350F;">Requires acknowledgment + documented reason to override. Pop-up disrupts workflow. E.g. Major DDI (warfarin+TMP/SMX), dose &gt;50% above max range.</span></div>
+      </div>
+      <div class="tier-item" style="border-color:#3B82F6;background:#EFF6FF;">
+        <div class="tier-num" style="background:#3B82F6;">3</div>
+        <div><strong style="color:#1E40AF;">TIER 3: ADVISORY / SOFT STOP</strong><br><span style="font-size:13px;color:#1E40AF;">Background warning — can be dismissed without documented reason. Informational. E.g. Moderate DDI, non-urgent monitoring reminder.</span></div>
+      </div>
+      <div class="tier-item" style="border-color:#94A3B8;background:#F8FAFF;">
+        <div class="tier-num" style="background:#94A3B8;">4</div>
+        <div><strong style="color:#64748B;">TIER 4: PASSIVE (On-Request)</strong><br><span style="font-size:13px;color:#64748B;">No automatic notification. User must actively query. E.g. Drug information references, dosing calculators, clinical guidelines.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>😤 Alert Fatigue — The 85–95% Problem</h3>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;">
+      <div style="text-align:center;background:var(--red);color:#fff;border-radius:10px;padding:16px 20px;">
+        <div style="font-size:38px;font-weight:900;line-height:1;">85–95%</div>
+        <div style="font-size:11px;opacity:.85;margin-top:4px;">of drug alerts<br>are OVERRIDDEN</div>
+      </div>
+      <div>
+        <p>When clinicians override <em>everything</em>, the CDSS fails to protect patients from errors — the entire system purpose is defeated. Alert fatigue occurs when:</p>
+        <ul style="padding-left:18px;font-size:13.5px;line-height:1.9;color:var(--text);">
+          <li>Too many low-severity alerts — clinicians become desensitised</li>
+          <li>Poorly worded alerts without clear next steps</li>
+          <li>Alerts fire repeatedly for the same patient/drug</li>
+          <li>Irrelevant context — wrong patient type or clinical setting</li>
+          <li>No tiering — everything feels equally urgent</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pearl tip" style="margin-top:12px;"><div class="p-lbl" style="color:var(--green);">💊 Pharmacist CDSS Governance Role</div><p style="font-style:normal;color:#166534;">Pharmacists play a key role beyond just receiving alerts: audit monthly override reports → propose suppression of low-value alerts → write clinical logic for drug safety rules → report to the Pharmacy &amp; Therapeutics Committee → advocate for appropriate tiering. This is the pharmacist-as-informatics-professional role.</p></div>
+  </div>
+
+  <div class="card">
+    <h3>🤖 Beyond Rules — AI/ML in CDSS (Non-Knowledge-Based)</h3>
+    <p>Modern CDSS increasingly uses machine learning. The <strong>Random Forest</strong> model is the most clinically relevant example:</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Feature</th><th>Rule-Based (Arden Syntax)</th><th>Random Forest / ML</th></tr></thead>
+      <tbody>
+        <tr><td>How it works</td><td>Expert writes explicit IF/THEN rules</td><td>Multiple decision trees trained on patient data → majority vote for final prediction</td></tr>
+        <tr><td>Pharmacy application</td><td>DDI alerts, allergy checks, renal dosing</td><td>ADR prediction before prescribing; hospital readmission risk; non-adherence prediction</td></tr>
+        <tr><td>Strength</td><td>Transparent, auditable, easy to update</td><td>Identifies complex non-linear patterns humans cannot see</td></tr>
+        <tr><td>Limitation</td><td>Cannot learn from new data automatically</td><td>'Black box' — cannot explain individual decisions</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="goTo(3)">← Arden Syntax</button>
+    <button class="nav-btn" onclick="goTo(5)" style="background:var(--purple);">⚡ Start Exercises →</button>
+  </div>
+</div>
+
+<!-- ══ SEC 5: MATCHING EXERCISE ══ -->
+<div class="sec" id="sec-5">
+  <div class="sec-tag">Practical Exercise 1</div>
+  <div class="sec-hdr"><h2>Matching Exercise — Arden Slots &amp; Concepts</h2><p>Match each description to the correct Arden Syntax slot or CDSS concept. Click an item on the left, then click its match on the right.</p></div>
+
+  <div class="card">
+    <h3>🔗 Exercise A — Match Arden Slot to Description</h3>
+    <div id="match-result-a" style="font-size:13px;margin-bottom:10px;display:none;"></div>
+    <div class="match-grid">
+      <div class="match-col" id="left-a">
+        <div class="match-item" data-id="m1"><div class="item-lbl">Arden Slot</div>MAINTENANCE</div>
+        <div class="match-item" data-id="m2"><div class="item-lbl">Arden Slot</div>DATA</div>
+        <div class="match-item" data-id="m3"><div class="item-lbl">Arden Slot</div>EVOKE</div>
+        <div class="match-item" data-id="m4"><div class="item-lbl">Arden Slot</div>LOGIC</div>
+        <div class="match-item" data-id="m5"><div class="item-lbl">Arden Slot</div>ACTION</div>
+      </div>
+      <div class="match-col" id="right-a">
+        <div class="match-item" data-match="m3"><div class="item-lbl">Description</div>Defines WHEN the rule fires — the trigger event</div>
+        <div class="match-item" data-match="m5"><div class="item-lbl">Description</div>Specifies the alert text or recommendation to display</div>
+        <div class="match-item" data-match="m1"><div class="item-lbl">Description</div>Contains title, version, author — metadata only, does NOT affect execution</div>
+        <div class="match-item" data-match="m4"><div class="item-lbl">Description</div>Contains the IF/ELSE IF/ELSE decision chain — the "brain" of the rule</div>
+        <div class="match-item" data-match="m2"><div class="item-lbl">Description</div>Retrieves patient information from the EHR using := read last</div>
+      </div>
+    </div>
+    <button class="check-fill-btn" onclick="checkMatchA()">Check Answers</button>
+  </div>
+
+  <div class="card">
+    <h3>🔗 Exercise B — Match Alert Tier to Clinical Scenario</h3>
+    <div id="match-result-b" style="font-size:13px;margin-bottom:10px;display:none;"></div>
+    <div class="match-grid">
+      <div class="match-col" id="left-b">
+        <div class="match-item" data-id="t1"><div class="item-lbl">Alert Tier</div>TIER 1 — Hard Stop</div>
+        <div class="match-item" data-id="t2"><div class="item-lbl">Alert Tier</div>TIER 2 — Interruptive</div>
+        <div class="match-item" data-id="t3"><div class="item-lbl">Alert Tier</div>TIER 3 — Advisory</div>
+        <div class="match-item" data-id="t4"><div class="item-lbl">Alert Tier</div>TIER 4 — Passive</div>
+      </div>
+      <div class="match-col" id="right-b">
+        <div class="match-item" data-match="t3"><div class="item-lbl">Scenario</div>A moderate DDI suggestion appears in a sidebar — clinician can proceed without acknowledging</div>
+        <div class="match-item" data-match="t1"><div class="item-lbl">Scenario</div>Patient has documented penicillin anaphylaxis — amoxicillin order is entered and completely blocked</div>
+        <div class="match-item" data-match="t4"><div class="item-lbl">Scenario</div>Pharmacist looks up a vancomycin dosing calculator during rounds</div>
+        <div class="match-item" data-match="t2"><div class="item-lbl">Scenario</div>Warfarin + TMP/SMX ordered — pop-up appears requiring a documented reason before proceeding</div>
+      </div>
+    </div>
+    <button class="check-fill-btn" onclick="checkMatchB()">Check Answers</button>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="goTo(4)">← Alert Hierarchy</button>
+    <button class="nav-btn" onclick="goTo(6)">Arden Fill-In Cases →</button>
+  </div>
+</div>
+
+<!-- ══ SEC 6: ARDEN FILL-IN ══ -->
+<div class="sec" id="sec-6">
+  <div class="sec-tag">Practical Exercise 2</div>
+  <div class="sec-hdr"><h2>Arden Syntax Fill-In Cases</h2><p>Complete the missing slots in each Arden rule. Type your answers in the blanks and click Check to verify.</p></div>
+
+  <!-- Fill-in 1 -->
+  <div class="card">
+    <h3>✍ Case A — Penicillin Allergy Check</h3>
+    <p><strong>Scenario:</strong> Patient has documented penicillin allergy (severity: anaphylaxis). Prescriber enters amoxicillin 500mg TDS. Complete the EVOKE and LOGIC slots.</p>
+    <div class="fill-box" id="fill-a">
+      <span style="color:#A5F3FC;">maintenance:</span><br>
+      &nbsp;&nbsp;<span style="color:#94A3B8;">title: Penicillin Allergy Alert</span><br>
+      <br>
+      <span style="color:var(--teal2);">data:</span><br>
+      &nbsp;&nbsp;<span style="color:#A5F3FC;">pen_allergy</span> := read patient allergy where allergen = <span style="color:#FCA5A5;">'penicillin'</span><br>
+      &nbsp;&nbsp;<span style="color:#A5F3FC;">amox_order</span> := read new medication where drug = <span style="color:#FCA5A5;">'amoxicillin'</span><br>
+      <br>
+      <span style="color:#C4B5FD;">evoke:</span>&nbsp;&nbsp;
+      <input class="fill-blank" id="fa1" placeholder="what triggers this?" style="width:160px;color:#C4B5FD;"/><br>
+      <br>
+      <span style="color:#FCA5A5;">logic:</span><br>
+      &nbsp;&nbsp;<input class="fill-blank" id="fa2" placeholder="keyword?" style="width:60px;"/> pen_allergy is present and amox_order is present <input class="fill-blank" id="fa3" placeholder="keyword?" style="width:60px;"/><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<input class="fill-blank" id="fa4" placeholder="conclude ___?" style="width:120px;"/><br>
+      &nbsp;&nbsp;<span style="color:#F59E0B;">else</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#F59E0B;">conclude false</span><br>
+      &nbsp;&nbsp;<input class="fill-blank" id="fa5" placeholder="mandatory keyword?" style="width:80px;"/><br>
+      <br>
+      <span style="color:#86EFAC;">action:</span><br>
+      &nbsp;&nbsp;<span style="color:#FCA5A5;">write alert 'HARD STOP: Penicillin allergy — amoxicillin contraindicated.'</span>
+    </div>
+    <button class="check-fill-btn" onclick="checkFillA()">Check My Answers</button>
+    <div id="fill-a-result" class="fb" style="margin-top:10px;"></div>
+  </div>
+
+  <!-- Fill-in 2 -->
+  <div class="card">
+    <h3>✍ Case B — Metformin Renal Contraindication</h3>
+    <p><strong>Scenario:</strong> New metformin order. If CrCl &lt; 30 mL/min, metformin is contraindicated (lactic acidosis risk). Complete the DATA and LOGIC slots.</p>
+    <div class="fill-box" id="fill-b">
+      <span style="color:#A5F3FC;">maintenance:</span><br>
+      &nbsp;&nbsp;<span style="color:#94A3B8;">title: Metformin Renal Contraindication Alert</span><br>
+      <br>
+      <span style="color:var(--teal2);">data:</span><br>
+      &nbsp;&nbsp;<input class="fill-blank" id="fb1" placeholder="variable name?" style="width:100px;"/> :=
+      <input class="fill-blank" id="fb2" placeholder="read ___ ___?" style="width:130px;"/> lab_result where test = <span style="color:#FCA5A5;">'CrCl'</span><br>
+      &nbsp;&nbsp;<span style="color:#A5F3FC;">met_order</span> := read new medication where drug = <span style="color:#FCA5A5;">'metformin'</span><br>
+      <br>
+      <span style="color:#C4B5FD;">evoke:</span>&nbsp;&nbsp;<span style="color:#A5F3FC;">met_order</span><br>
+      <br>
+      <span style="color:#FCA5A5;">logic:</span><br>
+      &nbsp;&nbsp;<span style="color:#F59E0B;">if</span> <input class="fill-blank" id="fb3" placeholder="condition?" style="width:160px;"/> <span style="color:#F59E0B;">then</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#F59E0B;">conclude true</span><br>
+      &nbsp;&nbsp;<span style="color:#F59E0B;">else</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#F59E0B;">conclude false</span><br>
+      &nbsp;&nbsp;<span style="color:#F59E0B;">endif</span><br>
+      <br>
+      <span style="color:#86EFAC;">action:</span><br>
+      &nbsp;&nbsp;<input class="fill-blank" id="fb4" placeholder="write ___?" style="width:80px;"/> <span style="color:#FCA5A5;">'CONTRAINDICATED: Metformin — CrCl &lt; 30 mL/min. Lactic acidosis risk.'</span>
+    </div>
+    <button class="check-fill-btn" onclick="checkFillB()">Check My Answers</button>
+    <div id="fill-b-result" class="fb" style="margin-top:10px;"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="goTo(5)">← Matching Exercise</button>
+    <button class="nav-btn" onclick="goTo(7)" style="background:var(--green);">▶ Begin Assessment Cases →</button>
+  </div>
+</div>
+
+<!-- ══ SEC 7: MCQ CASES 1-5 ══ -->
+<div class="sec" id="sec-7">
+  <div class="sec-tag">Assessment — Cases 1–5</div>
+  <div class="sec-hdr"><h2>Clinical Assessment Cases 1–5</h2><p>Each case is worth <strong>1 mark</strong>. Select your answer and click Submit. Immediate feedback provided.</p></div>
+  <div class="q-tracker">
+    <div class="q-dot" id="dot-1" onclick="scrollTo1('q1')">1</div>
+    <div class="q-dot" id="dot-2" onclick="scrollTo1('q2')">2</div>
+    <div class="q-dot" id="dot-3" onclick="scrollTo1('q3')">3</div>
+    <div class="q-dot" id="dot-4" onclick="scrollTo1('q4')">4</div>
+    <div class="q-dot" id="dot-5" onclick="scrollTo1('q5')">5</div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="case-box" id="q1">
+    <div class="q-num">Case 1 of 10 · 1 Mark · Topic: Arden Syntax — Slot Identification</div>
+    <div class="vignette">A pharmacist reviews a CDSS rule for a vancomycin trough monitoring alert. One section of the rule reads: <em>evoke: new_vancomycin_order</em>. Her colleague asks what this section does.</div>
+    <div class="q-stem">Which of the following BEST describes the function of the evoke: slot in this Arden Syntax rule?</div>
+    <div class="opts" id="opts-1">
+      <label class="opt"><input type="radio" name="q1" value="A"><span><strong>A.</strong> It retrieves the patient's most recent vancomycin serum level from the EHR using := read last syntax</span></label>
+      <label class="opt"><input type="radio" name="q1" value="B"><span><strong>B.</strong> It specifies the alert text to be displayed when the vancomycin trough is subtherapeutic</span></label>
+      <label class="opt"><input type="radio" name="q1" value="C"><span><strong>C.</strong> It defines the trigger condition — the rule fires specifically when a new vancomycin order is entered</span></label>
+      <label class="opt"><input type="radio" name="q1" value="D"><span><strong>D.</strong> It contains the IF/ELSE logic that checks whether the trough level is within the therapeutic range</span></label>
+    </div>
+    <button class="submit-q-btn" id="btn-1" onclick="submitQ(1,'C')">Submit Answer</button>
+    <span class="marks-badge" id="mark-1"></span>
+    <div class="fb" id="fb-1"></div>
+    <div class="keypoint" id="kp-1"><strong>KEY POINT:</strong> The evoke: slot is the TRIGGER — it defines WHEN the rule activates. Without evoke, the rule never runs. It does not retrieve data (that's DATA slot), does not check values (that's LOGIC), and does not output text (that's ACTION). The evoke slot is arguably the most critical — one of the 5-slot identifications most tested in MCQs.</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="case-box" id="q2">
+    <div class="q-num">Case 2 of 10 · 1 Mark · Topic: CDSS Types</div>
+    <div class="vignette">A hospital implements a CDSS that flags when clopidogrel and omeprazole are co-prescribed together. The rule was written by the clinical pharmacist using an explicit IF/THEN framework based on MHRA guidance. It can be opened, read, and modified by any authorised pharmacist.</div>
+    <div class="q-stem">Which type of CDSS is described, and what is its primary advantage in a clinical pharmacy setting?</div>
+    <div class="opts" id="opts-2">
+      <label class="opt"><input type="radio" name="q2" value="A"><span><strong>A.</strong> Non-knowledge-based (ML) — advantage is that it learns from new prescribing patterns automatically</span></label>
+      <label class="opt"><input type="radio" name="q2" value="B"><span><strong>B.</strong> Passive CDSS — advantage is that it provides on-demand information without interrupting workflow</span></label>
+      <label class="opt"><input type="radio" name="q2" value="C"><span><strong>C.</strong> Knowledge-based — primary advantage is transparency: rules can be read, audited, and updated when guidelines change</span></label>
+      <label class="opt"><input type="radio" name="q2" value="D"><span><strong>D.</strong> Active non-knowledge-based — advantage is automatic alert generation without requiring manual rule creation</span></label>
+    </div>
+    <button class="submit-q-btn" id="btn-2" onclick="submitQ(2,'C')">Submit Answer</button>
+    <span class="marks-badge" id="mark-2"></span>
+    <div class="fb" id="fb-2"></div>
+    <div class="keypoint" id="kp-2"><strong>KEY POINT:</strong> Knowledge-based CDSS = explicit rules + transparent + auditable. The description says "written by clinical pharmacist" and "can be read and modified" — these are hallmarks of knowledge-based systems. Non-knowledge-based (ML/AI) systems cannot be easily read or modified in this way — they are 'black box'.</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="case-box" id="q3">
+    <div class="q-num">Case 3 of 10 · 1 Mark · Topic: CDSS Architecture</div>
+    <div class="vignette">A new hospital EHR is being implemented. The clinical informatics team notes that a patient's documented penicillin allergy was not imported correctly from the legacy system. Three days later, a CDSS failed to alert when amoxicillin was ordered for this patient.</div>
+    <div class="q-stem">Which component of the CDSS architecture does this failure MOST directly illustrate?</div>
+    <div class="opts" id="opts-3">
+      <label class="opt"><input type="radio" name="q3" value="A"><span><strong>A.</strong> Processing Engine failure — the IF/THEN rules were not correctly applied to the allergy data</span></label>
+      <label class="opt"><input type="radio" name="q3" value="B"><span><strong>B.</strong> Input failure — the allergy was not present in the EHR data feeding the CDSS, so no rule could trigger</span></label>
+      <label class="opt"><input type="radio" name="q3" value="C"><span><strong>C.</strong> Output failure — the alert was generated internally but not displayed to the prescriber</span></label>
+      <label class="opt"><input type="radio" name="q3" value="D"><span><strong>D.</strong> Clinical Decision failure — the prescriber received the alert but overrode it without documentation</span></label>
+    </div>
+    <button class="submit-q-btn" id="btn-3" onclick="submitQ(3,'B')">Submit Answer</button>
+    <span class="marks-badge" id="mark-3"></span>
+    <div class="fb" id="fb-3"></div>
+    <div class="keypoint" id="kp-3"><strong>KEY POINT:</strong> "Garbage in = garbage out." CDSS depends entirely on the quality of its INPUT data. If the allergy is not in the EHR, the DATA slot reads nothing, the LOGIC slot has nothing to evaluate, and no alert fires — even though the rule itself is correct. This is the most common real-world CDSS failure mode and a favourite exam illustration.</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="case-box" id="q4">
+    <div class="q-num">Case 4 of 10 · 1 Mark · Topic: Arden Syntax Logic Ordering</div>
+    <div class="vignette">A pharmacy student writes an Arden Syntax rule for serum potassium monitoring. Their logic slot reads: <code style="font-size:12px;background:#0F172A;color:#A5F3FC;padding:2px 5px;border-radius:3px;">if patient_k > 5.5 then status := 'HIGH ALERT' conclude true else if patient_k > 6.0 then status := 'HARD STOP' conclude true endif</code></div>
+    <div class="q-stem">What is the critical error in this logic, and what patient safety consequence could result?</div>
+    <div class="opts" id="opts-4">
+      <label class="opt"><input type="radio" name="q4" value="A"><span><strong>A.</strong> The variable 'status' cannot be assigned inside a logic slot — it must be defined in the data slot</span></label>
+      <label class="opt"><input type="radio" name="q4" value="B"><span><strong>B.</strong> Conditions are in the wrong order — a patient with K⁺ = 6.4 would trigger the HIGH ALERT (5.5) first and never reach the HARD STOP (6.0) tier, missing a life-threatening alert</span></label>
+      <label class="opt"><input type="radio" name="q4" value="C"><span><strong>C.</strong> Two 'conclude true' statements are not permitted — only one conclude statement per Arden rule is allowed</span></label>
+      <label class="opt"><input type="radio" name="q4" value="D"><span><strong>D.</strong> The 'status' variable must be initialised before the logic slot — using := inside logic is a syntax error</span></label>
+    </div>
+    <button class="submit-q-btn" id="btn-4" onclick="submitQ(4,'B')">Submit Answer</button>
+    <span class="marks-badge" id="mark-4"></span>
+    <div class="fb" id="fb-4"></div>
+    <div class="keypoint" id="kp-4"><strong>KEY POINT:</strong> Condition ordering in LOGIC is critical. IF evaluates the FIRST condition that matches — if K⁺ &gt; 5.5 is checked first, a K⁺ of 6.4 matches it immediately (since 6.4 &gt; 5.5 is TRUE) and the rule stops there, never reaching the HARD STOP tier. Always order from most critical (highest risk, largest value) downward.</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="case-box" id="q5">
+    <div class="q-num">Case 5 of 10 · 1 Mark · Topic: Alert Fatigue</div>
+    <div class="vignette">A clinical pharmacist audits the hospital CDSS. She finds that 91% of all drug-drug interaction alerts were overridden in the past month. On investigation, she discovers that 78% of these overrides were for the same moderate DDI (simvastatin + amlodipine) that rarely causes clinical problems in the doses used, and the alert fires every time a patient's simvastatin dose is reviewed.</div>
+    <div class="q-stem">Which evidence-based CDSS governance action BEST addresses this specific alert fatigue problem?</div>
+    <div class="opts" id="opts-5">
+      <label class="opt"><input type="radio" name="q5" value="A"><span><strong>A.</strong> Upgrade the alert from Tier 3 Advisory to Tier 1 Hard Stop to ensure prescribers read it carefully</span></label>
+      <label class="opt"><input type="radio" name="q5" value="B"><span><strong>B.</strong> Suppress or downgrade this specific alert after clinical review — its high override rate reflects low clinical significance at the doses used</span></label>
+      <label class="opt"><input type="radio" name="q5" value="C"><span><strong>C.</strong> Remove the EVOKE slot so the alert is available on demand only, without changing the clinical threshold</span></label>
+      <label class="opt"><input type="radio" name="q5" value="D"><span><strong>D.</strong> Increase the frequency of the alert — clinicians are not seeing it enough, leading to dismissal behaviour</span></label>
+    </div>
+    <button class="submit-q-btn" id="btn-5" onclick="submitQ(5,'B')">Submit Answer</button>
+    <span class="marks-badge" id="mark-5"></span>
+    <div class="fb" id="fb-5"></div>
+    <div class="keypoint" id="kp-5"><strong>KEY POINT:</strong> Alert fatigue solutions require clinical governance, not brute force. If 78% of overrides are for ONE low-value alert, the evidence-based action is to suppress or downgrade that specific alert after review. Upgrading to Hard Stop makes fatigue worse. Removing EVOKE entirely removes the alert permanently. The pharmacist's governance role is to audit, identify low-value alerts, and advocate for rational alert suppression.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="goTo(6)">← Fill-In Exercises</button>
+    <button class="nav-btn" onclick="goTo(8)">Cases 6–10 →</button>
+  </div>
+</div>
+
+<!-- ══ SEC 8: MCQ CASES 6-10 ══ -->
+<div class="sec" id="sec-8">
+  <div class="sec-tag">Assessment — Cases 6–10</div>
+  <div class="sec-hdr"><h2>Clinical Assessment Cases 6–10</h2><p>Final 5 cases. After completing all 10, proceed to Submit &amp; Results.</p></div>
+  <div class="q-tracker">
+    <div class="q-dot" id="dot-6" onclick="scrollTo1('q6')">6</div>
+    <div class="q-dot" id="dot-7" onclick="scrollTo1('q7')">7</div>
+    <div class="q-dot" id="dot-8" onclick="scrollTo1('q8')">8</div>
+    <div class="q-dot" id="dot-9" onclick="scrollTo1('q9')">9</div>
+    <div class="q-dot" id="dot-10" onclick="scrollTo1('q10')">10</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="case-box" id="q6">
+    <div class="q-num">Case 6 of 10 · 1 Mark · Topic: Arden Syntax — DATA Slot</div>
+    <div class="vignette">In an Arden rule for warfarin monitoring: <code style="font-size:12px;background:#0F172A;color:#A5F3FC;padding:2px 5px;border-radius:3px;">inr_value := read last lab_result where test = 'INR'</code></div>
+    <div class="q-stem">What does the operator := do in this Arden Syntax statement, and which slot does it belong to?</div>
+    <div class="opts" id="opts-6">
+      <label class="opt"><input type="radio" name="q6" value="A"><span><strong>A.</strong> := is a comparison operator in the LOGIC slot — it checks whether the INR equals a threshold value</span></label>
+      <label class="opt"><input type="radio" name="q6" value="B"><span><strong>B.</strong> := is an assignment operator in the DATA slot — it stores the most recent INR result in the variable inr_value for use in LOGIC</span></label>
+      <label class="opt"><input type="radio" name="q6" value="C"><span><strong>C.</strong> := is used in the ACTION slot to write the INR value into the alert message text</span></label>
+      <label class="opt"><input type="radio" name="q6" value="D"><span><strong>D.</strong> := defines the trigger event in the EVOKE slot — the rule fires when a new INR result is assigned</span></label>
+    </div>
+    <button class="submit-q-btn" id="btn-6" onclick="submitQ(6,'B')">Submit Answer</button>
+    <span class="marks-badge" id="mark-6"></span>
+    <div class="fb" id="fb-6"></div>
+    <div class="keypoint" id="kp-6"><strong>KEY POINT:</strong> := is the ASSIGNMENT operator used exclusively in the DATA slot. It retrieves data from the EHR and stores it in a named variable. "read last" retrieves the most recent value. The variable (inr_value) is then used in the LOGIC slot to evaluate conditions. Never confuse := (assignment) with = (equality comparison used in conditions).</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="case-box" id="q7">
+    <div class="q-num">Case 7 of 10 · 1 Mark · Topic: Passive vs Active CDSS</div>
+    <div class="vignette">A clinical pharmacist at a community pharmacy uses an online drug interaction database to check whether a patient's new prescription for clarithromycin interacts with their existing simvastatin. She types both drug names and reviews the result before dispensing.</div>
+    <div class="q-stem">What type of CDSS is the pharmacist using, and why?</div>
+    <div class="opts" id="opts-7">
+      <label class="opt"><input type="radio" name="q7" value="A"><span><strong>A.</strong> Active CDSS — because it automatically analysed the patient's medication list and fired an alert at the point of dispensing</span></label>
+      <label class="opt"><input type="radio" name="q7" value="B"><span><strong>B.</strong> Non-knowledge-based CDSS — the system used machine learning to identify the interaction pattern from prescribing data</span></label>
+      <label class="opt"><input type="radio" name="q7" value="C"><span><strong>C.</strong> Passive CDSS — the pharmacist actively queried the system on demand; no automatic alert was generated</span></label>
+      <label class="opt"><input type="radio" name="q7" value="D"><span><strong>D.</strong> Knowledge-based active CDSS — the system uses explicit rules and proactively interrupted the dispensing workflow</span></label>
+    </div>
+    <button class="submit-q-btn" id="btn-7" onclick="submitQ(7,'C')">Submit Answer</button>
+    <span class="marks-badge" id="mark-7"></span>
+    <div class="fb" id="fb-7"></div>
+    <div class="keypoint" id="kp-7"><strong>KEY POINT:</strong> Passive CDSS = pharmacist must ACTIVELY QUERY the system — no automatic alert fires. The pharmacist "typed both drug names" = deliberate on-demand query = passive. Active CDSS fires automatically at the point of care without the user requesting it. The same interaction database could be part of an active CDSS if it automatically scanned orders — it's the mode of use that defines passive vs active.</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="case-box" id="q8">
+    <div class="q-num">Case 8 of 10 · 1 Mark · Topic: Alert Tier Selection</div>
+    <div class="vignette">A hospital CDSS team is reviewing alert tiers. They discuss the following scenario: A patient on digoxin has a new K⁺ result of 3.2 mmol/L. Hypokalemia increases digoxin toxicity risk. The team debates whether this should be a Hard Stop or an Interruptive alert.</div>
+    <div class="q-stem">Which alert tier is MOST clinically appropriate for this scenario, and why?</div>
+    <div class="opts" id="opts-8">
+      <label class="opt"><input type="radio" name="q8" value="A"><span><strong>A.</strong> Tier 1 Hard Stop — any hypokalemia in a digoxin patient is immediately life-threatening and should block all orders</span></label>
+      <label class="opt"><input type="radio" name="q8" value="B"><span><strong>B.</strong> Tier 2 Interruptive — significant risk requiring clinical acknowledgment and documented reason to proceed, but not necessarily a Hard Stop</span></label>
+      <label class="opt"><input type="radio" name="q8" value="C"><span><strong>C.</strong> Tier 4 Passive — prescribers should look up digoxin-hypokalemia interactions themselves; automatic alerts are not needed</span></label>
+      <label class="opt"><input type="radio" name="q8" value="D"><span><strong>D.</strong> Tier 3 Advisory — it is a background warning only; K⁺ of 3.2 is mildly low and clinicians should not be interrupted</span></label>
+    </div>
+    <button class="submit-q-btn" id="btn-8" onclick="submitQ(8,'B')">Submit Answer</button>
+    <span class="marks-badge" id="mark-8"></span>
+    <div class="fb" id="fb-8"></div>
+    <div class="keypoint" id="kp-8"><strong>KEY POINT:</strong> Alert tier selection requires clinical judgement. K⁺ = 3.2 with digoxin is significant (digoxin toxicity risk is real) but NOT immediately life-threatening at this level — the patient is not in cardiac arrest yet. This justifies Tier 2 Interruptive (requires acknowledgment + reason). Hard Stop is reserved for scenarios where proceeding would cause IMMEDIATE life-threatening harm (e.g. anaphylaxis allergy, K⁺ &gt; 6.0).</div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="case-box" id="q9">
+    <div class="q-num">Case 9 of 10 · 1 Mark · Topic: Arden Syntax — Complete Rule Reading</div>
+    <div class="vignette">Review this Arden rule fragment: <code style="font-size:11.5px;background:#0F172A;color:#A5F3FC;padding:3px 6px;border-radius:3px;">evoke: new_potassium_supplement_order | logic: if ace_inhibitor is present then conclude true else conclude false endif | action: write alert 'Hyperkalemia risk: monitor K+'</code></div>
+    <div class="q-stem">Which of the following BEST describes what this rule does and when it fires?</div>
+    <div class="opts" id="opts-9">
+      <label class="opt"><input type="radio" name="q9" value="A"><span><strong>A.</strong> The rule fires every time an ACE inhibitor is ordered, and alerts if the patient's K⁺ is elevated above normal range</span></label>
+      <label class="opt"><input type="radio" name="q9" value="B"><span><strong>B.</strong> The rule fires when a new potassium supplement is ordered, and alerts if an ACE inhibitor is already present in the patient's active medications</span></label>
+      <label class="opt"><input type="radio" name="q9" value="C"><span><strong>C.</strong> The rule fires on every medication order, and checks whether both ACE inhibitor and potassium supplement are present simultaneously</span></label>
+      <label class="opt"><input type="radio" name="q9" value="D"><span><strong>D.</strong> The rule fires when a K⁺ lab result is received, and alerts the prescriber to consider starting an ACE inhibitor</span></label>
+    </div>
+    <button class="submit-q-btn" id="btn-9" onclick="submitQ(9,'B')">Submit Answer</button>
+    <span class="marks-badge" id="mark-9"></span>
+    <div class="fb" id="fb-9"></div>
+    <div class="keypoint" id="kp-9"><strong>KEY POINT:</strong> The 4-step reading method: (1) EVOKE: fires on new_potassium_supplement_order → new K⁺ order. (2) LOGIC: checks "if ace_inhibitor is present" → rule checks EXISTING medication list for ACE inhibitor when K⁺ is being ordered. (3) ACTION: fires alert about hyperkalemia risk. The trigger is the K⁺ order, and the check is the ACE inhibitor — not the other way around.</div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="case-box" id="q10">
+    <div class="q-num">Case 10 of 10 · 1 Mark · Topic: CDSS vs CPOE + Pharmacist Role</div>
+    <div class="vignette">A hospital implements a new CPOE system. Physicians enter medication orders electronically. A clinical pharmacist explains to a student: "CPOE is the order entry tool. CDSS is the clinical intelligence embedded within it. They are not the same thing, and pharmacists play a distinct role in both."</div>
+    <div class="q-stem">Which statement MOST accurately distinguishes CPOE from CDSS, and correctly identifies the pharmacist's role?</div>
+    <div class="opts" id="opts-10">
+      <label class="opt"><input type="radio" name="q10" value="A"><span><strong>A.</strong> CPOE provides clinical decision support; CDSS is the electronic order entry component. Pharmacists operate CPOE but do not interact with CDSS.</span></label>
+      <label class="opt"><input type="radio" name="q10" value="B"><span><strong>B.</strong> CPOE and CDSS are interchangeable terms for the same system. Pharmacists use both for order verification.</span></label>
+      <label class="opt"><input type="radio" name="q10" value="C"><span><strong>C.</strong> CPOE is the order entry tool (captures what is ordered); CDSS is the clinical intelligence layer that analyses orders and fires safety alerts. Pharmacists validate CDSS output, document overrides, and participate in alert governance.</span></label>
+      <label class="opt"><input type="radio" name="q10" value="D"><span><strong>D.</strong> CPOE is used in community pharmacy only; CDSS is the hospital-based equivalent. Pharmacists use whichever is available in their setting.</span></label>
+    </div>
+    <button class="submit-q-btn" id="btn-10" onclick="submitQ(10,'C')">Submit Answer</button>
+    <span class="marks-badge" id="mark-10"></span>
+    <div class="fb" id="fb-10"></div>
+    <div class="keypoint" id="kp-10"><strong>KEY POINT:</strong> CPOE ≠ CDSS. CPOE = computerised order entry — the mechanism for capturing orders. CDSS = clinical intelligence — the layer that analyses those orders against patient data and fires alerts. They work together but are distinct. The pharmacist's role in CDSS extends beyond passive reception: validation, override documentation, audit, rule development, and governance are all pharmacist responsibilities.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="goTo(7)">← Cases 1–5</button>
+    <button class="nav-btn" onclick="goTo(9)" style="background:var(--green);">📤 Submit & Results →</button>
+  </div>
+</div>
+
+<!-- ══ SEC 9: SUBMIT ══ -->
+<div class="sec" id="sec-9">
+  <div class="sec-tag">Final Submission</div>
+  <div class="sec-hdr"><h2>Results &amp; Submission</h2><p>Review your score and submit to the course database.</p></div>
+
+  <div class="submit-panel" id="results-panel">
+    <div id="res-student-info" style="font-size:13px;opacity:.75;margin-bottom:10px;"></div>
+    <div class="score-big" id="res-score">—</div>
+    <div class="score-sub" id="res-sub">Complete all 10 cases to see your score</div>
+    <div class="score-detail">
+      <div class="score-item"><div class="val" id="res-correct">—</div><div class="lbl">Correct</div></div>
+      <div class="score-item"><div class="val" id="res-marks">—</div><div class="lbl">Marks</div></div>
+      <div class="score-item"><div class="val" id="res-pct">—</div><div class="lbl">Percentage</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📊 Answer Summary</h3>
+    <div class="tbl-wrap">
+      <table id="summary-table">
+        <thead><tr><th>Case</th><th>Topic</th><th>Your Answer</th><th>Correct</th><th>Mark</th><th>Status</th></tr></thead>
+        <tbody id="summary-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📤 Submit to Instructor</h3>
+    <p style="font-size:13px;margin-bottom:10px;">Your responses will be recorded in the course database. If you provided your email, you will receive an automatic results email with feedback.</p>
+    <div id="submit-status" class="status-msg ok" style="display:block;">✅ Ready to submit. Click the button below.</div>
+    <div style="margin-top:12px;">
+      <button class="submit-final-btn" id="final-submit-btn" onclick="submitToSheets()">📤 Submit to Google Sheets</button>
+      <div id="submit-result" class="status-msg" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="goTo(8)">← Cases 6–10</button>
+    <button class="nav-btn" onclick="goTo(0)">🏠 Back to Start</button>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────────────────────────
+let student = {name:'',id:'',section:'',email:''};
+let answers = {};
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxnyMakhD-bmS-WrOrrLHuN_2iBSi04aRX2wJLgHcXtkyLefWjzW_whz_oTjZW2pU9_/exec';
+const CORRECT = {1:'C',2:'C',3:'B',4:'B',5:'B',6:'B',7:'C',8:'B',9:'B',10:'C'};
+const TOPICS = {
+  1:'Arden Syntax — EVOKE Slot',2:'CDSS Types — Knowledge-Based',3:'CDSS Architecture — Input',
+  4:'Arden Syntax — Logic Ordering',5:'Alert Fatigue — Governance',6:'Arden Syntax — DATA Slot (:=)',
+  7:'Passive vs Active CDSS',8:'Alert Tier Selection',9:'Arden Syntax — Rule Reading',10:'CPOE vs CDSS + Pharmacist Role'
+};
+const EXPLANATIONS = {
+  1:'The evoke: slot defines WHEN the rule fires — the trigger event. Without it the rule never runs. DATA retrieves values, LOGIC evaluates conditions, ACTION outputs the alert.',
+  2:'Knowledge-based CDSS uses explicit IF-THEN rules written by clinical experts. The key features: transparent, auditable, and modifiable when guidelines change. ML/AI systems are "black box".',
+  3:'CDSS can only act on data that exists in the EHR. If the allergy was not imported, the DATA slot reads nothing, the LOGIC slot has nothing to evaluate, and no alert fires — even if the rule is perfectly written.',
+  4:'In IF/ELSE IF chains, the FIRST matching condition wins. Since 6.4 > 5.5 is TRUE, the less-severe ELSE IF fires first and the rule stops — the HARD STOP is never reached. Always order highest risk first.',
+  5:'Evidence-based governance: audit override rates → identify high-volume, low-value alerts → suppress or downgrade after clinical review. Upgrading to Hard Stop worsens fatigue. Removing EVOKE eliminates the alert.',
+  6:':= is the assignment operator in the DATA slot. It reads the most recent value from the EHR and stores it in a variable for use in the LOGIC slot. Do not confuse with = (equality) used in conditions.',
+  7:'Passive CDSS = user actively queries on demand — no automatic alert fires. The pharmacist typed both drug names and requested the check herself. Active CDSS fires automatically at point of care.',
+  8:'K⁺ 3.2 with digoxin is clinically significant (real toxicity risk) but not immediately life-threatening at this level. Tier 2 Interruptive is appropriate — requires acknowledgment. Hard Stop is reserved for immediate life-threatening scenarios only.',
+  9:'Read EVOKE first: "new_potassium_supplement_order" = fires when K⁺ supplement is ordered. Then LOGIC: "if ace_inhibitor is present" = checks if ACE inhibitor is already in the medication list. ACTION: alerts about hyperkalemia risk.',
+  10:'CPOE = order entry tool (the mechanism). CDSS = clinical intelligence layer (the analysis). They are distinct but work together. Pharmacist roles: validate output, document overrides, audit alerts, develop rules, participate in governance.'
+};
+
+// ── NAVIGATION ──────────────────────────────────────────────────────────────
+function goTo(idx) {
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-i').forEach(n=>n.classList.remove('active'));
+  document.getElementById('sec-'+idx).classList.add('active');
+  document.getElementById('nav-'+idx).classList.add('active');
+  for(let i=0;i<idx;i++) document.getElementById('nav-'+i).classList.add('done');
+  document.getElementById('pbar').style.width=Math.round((idx/9)*100)+'%';
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(idx===9) buildResults();
+}
+
+// ── REGISTRATION ────────────────────────────────────────────────────────────
+function startModule(){
+  const n=document.getElementById('stu-name').value.trim();
+  const id=document.getElementById('stu-id').value.trim();
+  const err=document.getElementById('reg-err');
+  if(!n||!id){err.textContent='Please enter your Full Name and Student ID.';err.style.display='block';return;}
+  err.style.display='none';
+  student.name=n; student.id=id;
+  student.section=document.getElementById('stu-section').value.trim();
+  student.email=document.getElementById('stu-email').value.trim();
+  document.getElementById('student-display').textContent=n+' · '+id;
+  goTo(1);
+}
+
+// ── MCQ ENGINE ───────────────────────────────────────────────────────────────
+function submitQ(qNum,correctAns){
+  const sel=document.querySelector('input[name="q'+qNum+'"]:checked');
+  if(!sel){alert('Please select an answer first.');return;}
+  const val=sel.value;
+  answers['Q'+qNum]=val;
+  const isRight=val===correctAns;
+  document.querySelectorAll('input[name="q'+qNum+'"]').forEach(o=>{
+    o.disabled=true;
+    const d=o.closest('.opt');
+    if(o.value===correctAns) d.classList.add('correct');
+    else if(o.value===val&&!isRight) d.classList.add('wrong');
+  });
+  const fb=document.getElementById('fb-'+qNum);
+  fb.className='fb show '+(isRight?'ok':'nope');
+  fb.innerHTML=isRight
+    ?'<strong>✅ Correct!</strong> Well done — this case tests a key CDSS concept.'
+    :'<strong>❌ Incorrect.</strong> Correct answer: <strong>'+correctAns+'</strong>. '+EXPLANATIONS[qNum];
+  const kp=document.getElementById('kp-'+qNum);
+  if(kp) kp.classList.add('show');
+  const mk=document.getElementById('mark-'+qNum);
+  mk.textContent=isRight?'+1 mark':'0 marks';
+  mk.className='marks-badge show '+(isRight?'correct-mark':'wrong-mark');
+  document.getElementById('btn-'+qNum).disabled=true;
+  document.getElementById('btn-'+qNum).style.background='#94A3B8';
+  const dot=document.getElementById('dot-'+qNum);
+  if(dot) dot.className='q-dot '+(isRight?'answered-correct':'answered-wrong');
+}
+function scrollTo1(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});}
+
+// ── MATCHING EXERCISE ────────────────────────────────────────────────────────
+let matchASelected=null, matchBSelected=null;
+let matchAPairs={}, matchBPairs={};
+
+function setupMatching(){
+  document.querySelectorAll('#left-a .match-item').forEach(item=>{
+    item.onclick=()=>{
+      document.querySelectorAll('#left-a .match-item').forEach(i=>{if(!i.classList.contains('matched-correct'))i.classList.remove('selected');});
+      if(!item.classList.contains('matched-correct')){item.classList.add('selected');matchASelected=item.dataset.id;}
+    };
+  });
+  document.querySelectorAll('#right-a .match-item').forEach(item=>{
+    item.onclick=()=>{
+      if(!matchASelected||item.classList.contains('matched-correct')) return;
+      const leftEl=document.querySelector('#left-a [data-id="'+matchASelected+'"]');
+      const isCorrect=item.dataset.match===matchASelected;
+      if(isCorrect){
+        item.classList.add('matched-correct');
+        if(leftEl){leftEl.classList.remove('selected');leftEl.classList.add('matched-correct');}
+        matchAPairs[matchASelected]=true;
+      } else {
+        item.classList.add('matched-wrong');
+        setTimeout(()=>item.classList.remove('matched-wrong'),700);
+        if(leftEl) leftEl.classList.remove('selected');
+      }
+      matchASelected=null;
+    };
+  });
+  document.querySelectorAll('#left-b .match-item').forEach(item=>{
+    item.onclick=()=>{
+      document.querySelectorAll('#left-b .match-item').forEach(i=>{if(!i.classList.contains('matched-correct'))i.classList.remove('selected');});
+      if(!item.classList.contains('matched-correct')){item.classList.add('selected');matchBSelected=item.dataset.id;}
+    };
+  });
+  document.querySelectorAll('#right-b .match-item').forEach(item=>{
+    item.onclick=()=>{
+      if(!matchBSelected||item.classList.contains('matched-correct')) return;
+      const leftEl=document.querySelector('#left-b [data-id="'+matchBSelected+'"]');
+      const isCorrect=item.dataset.match===matchBSelected;
+      if(isCorrect){
+        item.classList.add('matched-correct');
+        if(leftEl){leftEl.classList.remove('selected');leftEl.classList.add('matched-correct');}
+        matchBPairs[matchBSelected]=true;
+      } else {
+        item.classList.add('matched-wrong');
+        setTimeout(()=>item.classList.remove('matched-wrong'),700);
+        if(leftEl) leftEl.classList.remove('selected');
+      }
+      matchBSelected=null;
+    };
+  });
+}
+
+function checkMatchA(){
+  const total=5, correct=Object.keys(matchAPairs).length;
+  const el=document.getElementById('match-result-a');
+  el.style.display='block';
+  el.className=correct===total?'status-msg ok':'status-msg pending';
+  el.textContent=correct===total?'✅ All 5 matched correctly! Well done.':`${correct}/5 correct. Keep trying — click items to match remaining pairs.`;
+}
+function checkMatchB(){
+  const total=4, correct=Object.keys(matchBPairs).length;
+  const el=document.getElementById('match-result-b');
+  el.style.display='block';
+  el.className=correct===total?'status-msg ok':'status-msg pending';
+  el.textContent=correct===total?'✅ All 4 matched correctly!':correct+'/4 correct. Try the remaining pairs.';
+}
+
+// ── FILL-IN CHECKS ───────────────────────────────────────────────────────────
+function checkFillA(){
+  const answers_a={
+    fa1:{expected:'amox_order',hint:'The trigger should be the new amoxicillin order'},
+    fa2:{expected:'if',hint:'The logic keyword that starts a conditional check'},
+    fa3:{expected:'then',hint:'The keyword that follows the condition in an IF statement'},
+    fa4:{expected:'conclude true',hint:'This makes the alert fire'},
+    fa5:{expected:'endif',hint:'Mandatory closing keyword for IF blocks'}
+  };
+  let correct=0,total=5;
+  let feedback='';
+  for(const [id,data] of Object.entries(answers_a)){
+    const el=document.getElementById(id);
+    const val=el.value.trim().toLowerCase();
+    const exp=data.expected.toLowerCase();
+    if(val===exp||val.replace(/\s+/g,' ')===exp){
+      el.classList.add('correct'); el.classList.remove('wrong'); correct++;
+    } else {
+      el.classList.add('wrong'); el.classList.remove('correct');
+      feedback+=`<br>• ${id.toUpperCase()}: ${data.hint} — expected: <strong>${data.expected}</strong>`;
+    }
+  }
+  const el=document.getElementById('fill-a-result');
+  el.className='fb show '+(correct===total?'ok':'nope');
+  el.innerHTML=correct===total
+    ?'<strong>✅ All correct!</strong> You can write a complete Arden rule for allergy checking.'
+    :`<strong>${correct}/${total} correct.</strong> Review the highlighted fields:${feedback}`;
+}
+
+function checkFillB(){
+  const answers_b={
+    fb1:{expected:'crcl',hint:'Name your CrCl variable (conventionally: crcl)'},
+    fb2:{expected:'read last',hint:'Retrieve the most recent lab result from the EHR'},
+    fb3:{expected:'crcl < 30',hint:'The condition that triggers the contraindication alert'},
+    fb4:{expected:'write alert',hint:'The Arden keyword that outputs the alert message'}
+  };
+  let correct=0,total=4;
+  let feedback='';
+  for(const [id,data] of Object.entries(answers_b)){
+    const el=document.getElementById(id);
+    const val=el.value.trim().toLowerCase();
+    const exp=data.expected.toLowerCase();
+    if(val===exp||val.replace(/\s+/g,' ')===exp){
+      el.classList.add('correct'); el.classList.remove('wrong'); correct++;
+    } else {
+      el.classList.add('wrong'); el.classList.remove('correct');
+      feedback+=`<br>• ${id.toUpperCase()}: ${data.hint} — expected: <strong>${data.expected}</strong>`;
+    }
+  }
+  const el=document.getElementById('fill-b-result');
+  el.className='fb show '+(correct===total?'ok':'nope');
+  el.innerHTML=correct===total
+    ?'<strong>✅ All correct!</strong> Excellent Arden Syntax construction.'
+    :`<strong>${correct}/${total} correct.</strong> Review:${feedback}`;
+}
+
+// ── RESULTS ──────────────────────────────────────────────────────────────────
+function buildResults(){
+  const correct=Object.entries(answers).filter(([k,v])=>v===CORRECT[parseInt(k.slice(1))]).length;
+  const total=Object.keys(answers).length;
+  const pct=total>0?Math.round((correct/10)*100):0;
+  let grade=pct>=90?'A+ Distinction':pct>=80?'A Excellent':pct>=70?'B Good':pct>=60?'C Pass':'D Needs Review';
+  document.getElementById('res-student-info').textContent=student.name+' · ID: '+student.id+(student.section?' · '+student.section:'');
+  document.getElementById('res-score').textContent=correct+' / 10';
+  document.getElementById('res-correct').textContent=correct;
+  document.getElementById('res-marks').textContent=correct;
+  document.getElementById('res-pct').textContent=pct+'%';
+  document.getElementById('res-sub').textContent='Grade: '+grade+' · Cases answered: '+total+'/10';
+  const tbody=document.getElementById('summary-body');
+  tbody.innerHTML='';
+  for(let q=1;q<=10;q++){
+    const a=answers['Q'+q]||'—';
+    const right=a===CORRECT[q];
+    tbody.innerHTML+=`<tr>
+      <td>Q${q}</td><td>${TOPICS[q]}</td>
+      <td><strong>${a}</strong></td><td>${CORRECT[q]}</td><td>${right?'1':'0'}</td>
+      <td>${right?'<span class="pill p-green">✓ Correct</span>':(a==='—'?'<span class="pill p-amber">Not answered</span>':'<span class="pill p-red">✗ Wrong</span>')}</td>
+    </tr>`;
+  }
+}
+
+// ── GOOGLE SHEETS SUBMISSION ─────────────────────────────────────────────────
+async function submitToSheets(){
+  if(Object.keys(answers).length===0){
+    showRes('err','No answers recorded. Please complete the assessment cases first.');return;
+  }
+  const btn=document.getElementById('final-submit-btn');
+  btn.disabled=true; btn.textContent='⏳ Submitting...';
+  showRes('pending','Sending your responses...');
+  const payload=JSON.stringify({
+    studentId:student.id, studentName:student.name,
+    section:student.section, email:student.email,
+    answers:answers, timestamp:new Date().toISOString()
+  });
+  try{
+    await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:payload,mode:'no-cors'});
+    btn.textContent='✅ Submitted';
+    showRes('ok',student.email
+      ?'✅ Submitted! A results email with feedback has been sent to '+student.email+'. Please screenshot this page.'
+      :'✅ Submitted! Your responses are recorded. Screenshot this page for your records.');
+  }catch(err){
+    btn.disabled=false; btn.textContent='Retry Submission';
+    showRes('err','Submission failed: '+err.message+'. Please email your instructor with your Student ID and screenshot.');
+  }
+}
+function showRes(type,msg){
+  const el=document.getElementById('submit-result');
+  el.className='status-msg '+type; el.textContent=msg; el.style.display='block';
+}
+
+// ── DOCX DOWNLOAD ────────────────────────────────────────────────────────────
+function downloadDocx(){
+  const b64="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";
+  const a=document.createElement('a');
+  a.href='data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,'+b64;
+  a.download='CDSS_Learning_Content.docx';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>document.body.removeChild(a),100);
+}
+
+setupMatching();
+</script>
+</body>
+</html>
