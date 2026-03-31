@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0D2D6B">
+<meta name="mobile-web-app-capable" content="yes">
 <title>CPOE & CDSS Interactive Learning Module | Informatics in Pharmacy Practice</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<!-- JSZip loaded lazily only when DOCX download is requested -->
 <style>
 :root{
   --bg:#F0F4FF;--card:#fff;--border:#E2E8F0;--text:#1E293B;--muted:#64748B;
@@ -306,6 +310,27 @@ tr:last-child td{border-bottom:none}
 .btn-gh{background:transparent;border:2px solid #E2E8F0;border-radius:12px;padding:9px 16px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;color:#64748B;transition:all .2s}
 .btn-gh:hover{background:#F8FAFC;border-color:#94A3B8}
 
+
+/* ── MOBILE FIXES ── */
+html { -webkit-text-size-adjust: 100%; }
+body { -webkit-overflow-scrolling: touch; overscroll-behavior-y: none; }
+button, .aq-btn, .m-item, .fc-card, .drag-word, .drag-blank {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  touch-action: manipulation;
+}
+.fc-card { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.fc-inner { -webkit-transform-style: preserve-3d; transform-style: preserve-3d; }
+.fc-front, .fc-back { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.fc-card.flipped .fc-inner { -webkit-transform: rotateY(180deg); transform: rotateY(180deg); }
+/* Prevent text selection on tap */
+.m-item, .aq-btn, .drag-word { -webkit-user-select: none; user-select: none; }
+/* Fix sticky header on iOS */
+.module-topbar { position: -webkit-sticky; position: sticky; }
+/* Minimum tap target 44x44 */
+.aq-btn { min-height: 44px; }
+.btn-em, .btn-vi, .btn-sk, .btn-am, .btn-ro, .btn-gh,
+.btn-check-drag, .btn-reset-drag, .btn-submit-assessment { min-height: 44px; }
+
 /* ===== SUCCESS SCREEN ===== */
 #success{display:none;flex:1;align-items:center;justify-content:center;padding:24px}
 .success-card{background:#fff;border-radius:24px;padding:40px;max-width:560px;text-align:center;box-shadow:var(--shadow-lg)}
@@ -393,6 +418,14 @@ tr:last-child td{border-bottom:none}
 
 /* legacy narrow fix kept for safety */
 </style>
+<script>
+window.addEventListener('error', function(e) {
+  console.error('Module error:', e.message, 'at', e.filename, e.lineno);
+});
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('Unhandled promise rejection:', e.reason);
+});
+</script>
 </head>
 <body>
 
@@ -444,7 +477,7 @@ tr:last-child td{border-bottom:none}
     <div class="home-header">
       <h1>CPOE &amp; CDSS Interactive Module</h1>
       <p>Informatics in Pharmacy Practice · School of Pharmacy, University of Jordan</p>
-      <p style="font-size:12px;opacity:.65;margin-top:2px">Dr. Samar J. Melhem · Assistant Professor, Digital Health &amp; Health Informatics · sa.melhem@ju.edu.jo</p>
+      <p style="font-size:12px;opacity:.65;margin-top:2px">Dr. Samar J. Melhem · Assistant Professor, Digital Health &amp; Health Informatics · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c3f2d622129202429210c263962292839622623">[email&#160;protected]</a></p>
       <div class="student-name" id="home-student-name"></div>
       <div style="margin-top:8px"><button onclick="resetStudent()" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;color:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;padding:4px 14px;cursor:pointer">Not you? Switch student</button></div>
     </div>
@@ -556,7 +589,7 @@ tr:last-child td{border-bottom:none}
   <button id="fab-toggle" onclick="toggleFab()">📄 Resources <span id="fab-arrow">▲</span></button>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6H75v_1aPdGDQ6dS-VEpTICN-x7L9NSTpgs_3Bd81omynJ59wpHLYWkXSjctiPTD5EA/exec';
 const STORAGE_KEY = 'ipp_student';
@@ -1080,16 +1113,7 @@ cdss:{
 <div class="highlight-box"><strong>Golden rule:</strong> conclude TRUE → ACTION fires (alert shown). conclude FALSE → silent, nothing displayed. <strong>Highest risk always in the first IF block.</strong></div>
 </div>
 
-${mkFlashcards([
-  {t:'MLM',d:'Medical Logic Module — one self-contained clinical rule. A CDSS runs hundreds of MLMs simultaneously, each checking a different condition.'},
-  {t:'EVOKE slot',d:'The trigger. Defines WHEN the rule activates. Without EVOKE, the rule NEVER runs — not even once.'},
-  {t:'DATA slot',d:'Fetches patient-specific variables from the EHR using := assignment. Example: serum_K := read last potassium.'},
-  {t:'LOGIC slot',d:'The IF/ELSE IF/ELSE chain. Evaluates patient data. Must end with conclude TRUE or conclude FALSE.'},
-  {t:'conclude TRUE',d:'Fires the ACTION slot — the clinician sees the alert. conclude FALSE = silent, no output to the screen.'},
-  {t:'ACTION slot',d:'What the clinician sees. Must name the specific drugs, state the severity tier, and give a clear recommended action.'},
-  {t:'Black box CDSS',d:'Non-knowledge-based CDSS (e.g. Random Forest). Cannot fully explain WHY it made a prediction — unlike transparent IF-THEN rules.'},
-  {t:'Alert fatigue',d:'Desensitisation caused by excessive low-value alerts — clinicians override everything reflexively, including critical alerts.'},
-])}
+<div id="arden-fc-placeholder" class="fc-placeholder"></div>
 
 <div class="content-block">
 <h3>🔬 Worked Example 1 — Gentamicin Renal Alert (Trace the Logic)</h3>
@@ -1147,13 +1171,7 @@ ${mkFlashcards([
 This catches the reverse scenario — warfarin ordered while patient is already on TMP/SMX.</div></div>
 </div>
 
-${mkMatch([
-  {t:'MAINTENANCE',d:'Contains title, author, version — admin only, does NOT affect rule execution'},
-  {t:'DATA slot',d:'Retrieves patient variables from EHR using := assignment'},
-  {t:'EVOKE slot',d:'Defines the trigger — without this, the rule never activates'},
-  {t:'LOGIC slot',d:'Contains the IF/ELSE chain; must end with conclude TRUE or conclude FALSE'},
-  {t:'ACTION slot',d:'Specifies the alert text the clinician sees when LOGIC = true'},
-],'arden1')}
+<div id="arden-match-placeholder" class="match-placeholder"></div>
 
 <div class="fig-q">
 <div class="fig-q-label">📊 Figure Interpretation — answer before the MCQs below</div>
@@ -1659,6 +1677,10 @@ function renderSection(idx){
   </div>`;
 
   $('section-content').innerHTML = sec.content + questionsHTML + navHTML;
+  // Inject interactive components after DOM update (fixes iOS template literal parse issues)
+  if (sec.title === 'Arden Syntax') {
+    setTimeout(injectArdenInteractives, 50);
+  }
 }
 
 function renderMCQ(q, sIdx, qIdx, partId){
@@ -2005,15 +2027,46 @@ function submitAssessment(partId){
 }
 
 // ─── TIMER ────────────────────────────────────────────────────────────────────
+// Handle tab switching and screen lock — prevents timer freeze on mobile
+let timerStartTime = null;
+let timerRemainingAtHide = null;
+
+document.addEventListener('visibilitychange', function() {
+  if (document.hidden) {
+    // Page hidden (tab switch, screen lock) — pause timer
+    if (timerInt && currentPart && timers[currentPart] > 0) {
+      timerRemainingAtHide = timers[currentPart];
+      clearInterval(timerInt);
+      timerInt = null;
+    }
+  } else {
+    // Page visible again — resume timer if was running
+    if (timerRemainingAtHide !== null && currentPart) {
+      timers[currentPart] = timerRemainingAtHide;
+      timerRemainingAtHide = null;
+      startTimer(currentPart);
+    }
+  }
+});
+
+window.addEventListener('pageshow', function(e) {
+  // iOS back-forward cache restore — restart timer if needed
+  if (e.persisted && currentPart && timers[currentPart] > 0) {
+    startTimer(currentPart);
+  }
+});
+
 function startTimer(partId){
   stopTimer();
   timerInt = setInterval(()=>{
     if(timers[partId]>0){
       timers[partId]--;
-      if($('mod-timer')) $('mod-timer').textContent=fmtTime(timers[partId]);
+      const timerEl = $('mod-timer');
+      if(timerEl) timerEl.textContent = fmtTime(timers[partId]);
       updateTimerColor();
     } else {
       clearInterval(timerInt);
+      timerInt = null;
     }
   },1000);
 }
@@ -2028,7 +2081,22 @@ function updateTimerColor(){
 
 // ─── DOCX DOWNLOAD ────────────────────────────────────────────────────────────
 async function downloadDocx(){
-  if(typeof JSZip==='undefined'){ alert('JSZip library not loaded. Please check your internet connection.'); return; }
+  // Lazy-load JSZip only when user requests it (doesn't block mobile load)
+  if(typeof JSZip==='undefined'){
+    try {
+      await new Promise((res,rej)=>{
+        const s=document.createElement('script');
+        s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+        s.onload=res; s.onerror=rej;
+        document.head.appendChild(s);
+      });
+    } catch(e) {, open the module URL for bookmarking
+  if(typeof JSZip==='undefined'){
+    if(confirm('DOCX download requires a network connection to load the library.\n\nOpen the module URL instead?')){
+      window.open('https://samarjmelhem-maker.github.io/CPOE-CDSS/','_blank');
+    }
+    return;
+  }
   const zip = new JSZip();
 
   const docXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -2147,17 +2215,17 @@ function mkFlashcards(cards) {
 // ─── MATCHING ────────────────────────────────────────────────────────────────
 const MS = {};
 function mkMatch(pairs, sid) {
-  MS[sid] = {selT:null, selD:null, pairs:{}, ok:{}, okD:{}};
+  MS[sid] = {selT:null, selD:null, pairs:{}, ok:{}, okD:{}, src:pairs};
   const defs = [...pairs.map(p=>p.d)].sort(()=>Math.random()-.5);
   MS[sid].defs = defs;
-  const enc = btoa(unescape(encodeURIComponent(JSON.stringify(pairs))));
+  const enc = sid; // use sid as key to MS[sid].src instead of btoa
   const tH = pairs.map((p,i)=>`<div class="m-item term" id="mt${sid}${i}" onclick="mT('${sid}',${i})">${p.t}</div>`).join('');
   const dH = defs.map((d,i)=>`<div class="m-item defn" id="md${sid}${i}" onclick="mD('${sid}',${i})">${d}</div>`).join('');
   return `<div class="match-wrap"><h4>🔗 Matching Exercise</h4><p class="match-sub">Click a TERM (left) then its matching DEFINITION (right). Green = locked correct.</p>
     <div class="match-cols"><div><div class="match-col-hdr">Term</div><div class="match-terms">${tH}</div></div>
     <div><div class="match-col-hdr">Definition</div><div class="match-defs">${dH}</div></div></div>
     <div class="match-acts">
-      <button class="btn-sk" onclick="mCheck('${sid}','${enc}')">Check ✓</button>
+      <button class="btn-sk" onclick="mCheck('${sid}','${sid}')">Check ✓</button>
       <button class="btn-gh" onclick="mReset('${sid}')">↺ Reset</button>
     </div><div class="match-res" id="mr${sid}"></div></div>`;
 }
@@ -2166,7 +2234,7 @@ function mD(sid,i){const s=MS[sid];if(!s||s.okD[i])return;s.selD=i;document.quer
 function mTry(sid){const s=MS[sid];if(s.selT===null||s.selD===null)return;s.pairs[s.selT]=s.selD;document.querySelectorAll(`[id^="mt${sid}"],[id^="md${sid}"]`).forEach(e=>e.classList.remove('sel'));s.selT=null;s.selD=null;}
 function mCheck(sid,enc){
   const s=MS[sid];if(!s)return;
-  const pairs=JSON.parse(decodeURIComponent(escape(atob(enc))));
+  const pairs=s.src;
   let ok=0;
   Object.entries(s.pairs||{}).forEach(([ti,di])=>{
     const correct=pairs[+ti].d===s.defs[+di];
@@ -2178,6 +2246,33 @@ function mCheck(sid,enc){
   if(res){res.className='match-res show '+(ok===pairs.length?'all-ok':'partial');
     res.innerHTML=ok===pairs.length?`🎉 Perfect — all ${pairs.length} matched!`:`${ok}/${pairs.length} correct. Keep going!`;}
 }
+
+// ─── ARDEN SECTION INTERACTIVE DATA ──────────────────────────────────────────
+const ARDEN_FC = [
+  {t:'MLM',d:'Medical Logic Module — one self-contained clinical rule. A CDSS runs hundreds of MLMs simultaneously, each checking a different condition.'},
+  {t:'EVOKE slot',d:'The trigger. Defines WHEN the rule activates. Without EVOKE, the rule NEVER runs — not even once.'},
+  {t:'DATA slot',d:'Fetches patient-specific variables from the EHR using := assignment. Example: serum_K := read last potassium.'},
+  {t:'LOGIC slot',d:'The IF/ELSE IF/ELSE chain. Evaluates patient data. Must end with conclude TRUE or conclude FALSE.'},
+  {t:'conclude TRUE',d:'Fires the ACTION slot — the clinician sees the alert. conclude FALSE = silent, no output to the screen.'},
+  {t:'ACTION slot',d:'What the clinician sees. Must name specific drugs, state the severity tier, and give a clear recommended action.'},
+  {t:'Black box CDSS',d:'Non-knowledge-based CDSS (e.g. Random Forest). Cannot fully explain WHY it made a prediction.'},
+  {t:'Alert fatigue',d:'Desensitisation from excessive low-value alerts — clinicians override everything reflexively, including critical ones.'},
+];
+const ARDEN_MATCH = [
+  {t:'MAINTENANCE',d:'Contains title, author, version — admin only, does NOT affect rule execution'},
+  {t:'DATA slot',d:'Retrieves patient variables from EHR using := assignment'},
+  {t:'EVOKE slot',d:'Defines the trigger — without this, the rule never activates'},
+  {t:'LOGIC slot',d:'Contains IF/ELSE chain; must end with conclude TRUE or conclude FALSE'},
+  {t:'ACTION slot',d:'Specifies the alert text the clinician sees when LOGIC = true'},
+];
+
+function injectArdenInteractives() {
+  const fcEl = document.getElementById('arden-fc-placeholder');
+  if (fcEl) { fcEl.outerHTML = mkFlashcards(ARDEN_FC); }
+  const mEl = document.getElementById('arden-match-placeholder');
+  if (mEl) { mEl.outerHTML = mkMatch(ARDEN_MATCH, 'arden1'); }
+}
+
 function mReset(sid){
   MS[sid]={selT:null,selD:null,pairs:{},ok:{},okD:{},defs:MS[sid]?.defs};
   document.querySelectorAll(`[id^="mt${sid}"],[id^="md${sid}"]`).forEach(e=>{e.classList.remove('ok','err','sel');e.style.pointerEvents='';});
@@ -2209,10 +2304,4 @@ function copyModuleURL(){
   }).catch(()=>{ prompt('Copy this URL:',url); });
 }
 
-// ─── ENTER KEY on notification ────────────────────────────────────────────────
-document.addEventListener('keydown',e=>{
-  if(e.key==='Enter'&&$('overlay').style.display!=='none') submitNotification();
-});
-</script>
-</body>
-</html>
+// ─── ENTER KEY on notification ──────────────────────
