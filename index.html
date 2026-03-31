@@ -39,8 +39,8 @@ code,pre{font-family:'Fira Code',monospace}
 .form-group label{display:block;font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px}
 .form-group input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-family:'Nunito',sans-serif;font-size:14px;color:var(--text);transition:border-color .2s}
 .form-group input:focus{outline:none;border-color:var(--navy)}
-.btn-notify{width:100%;padding:15px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 16px rgba(13,45,107,.3)}
-.btn-notify:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,45,107,.4)}
+.btn-notify{width:100%;padding:15px;border:none;border-radius:12px;background:linear-gradient(135deg,#059669,#047857);color:#fff;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 16px rgba(13,45,107,.3)}
+.btn-notify:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(5,150,105,.45)}
 .btn-notify:disabled{opacity:.6;cursor:default;transform:none}
 .notify-success{text-align:center;padding:16px;background:var(--ok-light);border-radius:12px;color:var(--ok);font-weight:700;margin-top:12px;display:none}
 
@@ -93,7 +93,7 @@ code,pre{font-family:'Fira Code',monospace}
 #module{flex:1;display:none;flex-direction:column}
 .module-topbar{position:sticky;top:0;z-index:100;background:#fff;border-bottom:2px solid var(--border);box-shadow:0 2px 8px rgba(30,41,59,0.07)}
 .topbar-inner{max-width:960px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
-.btn-back{background:none;border:2px solid var(--border);border-radius:10px;padding:7px 14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s}
+.btn-back{background:none;border:2px solid #C4B5FD;border-radius:10px;padding:7px 14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:#7C3AED;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s}
 .btn-back:hover{background:var(--bg);color:var(--text)}
 .topbar-title{font-size:16px;font-weight:800;flex:1}
 .topbar-timer{font-size:18px;font-weight:900;padding:7px 14px;border-radius:10px;min-width:80px;text-align:center;font-variant-numeric:tabular-nums}
@@ -240,7 +240,7 @@ tr:last-child td{border-bottom:none}
 .drag-blank.wrong-blank{background:var(--err-light);border-color:var(--err);color:var(--err)}
 .drag-blank.dropping{background:#EDE9FE;border-color:var(--cdss)}
 .drag-actions{display:flex;gap:10px;margin-top:12px}
-.btn-check-drag{padding:11px 22px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s}
+.btn-check-drag{padding:11px 22px;border:none;border-radius:10px;background:linear-gradient(135deg,#059669,#047857);color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s}
 .btn-check-drag:hover{transform:translateY(-1px)}
 .btn-reset-drag{padding:11px 18px;border:2px solid var(--border);border-radius:10px;background:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .2s}
 .btn-reset-drag:hover{background:var(--bg)}
@@ -249,12 +249,62 @@ tr:last-child td{border-bottom:none}
 .drag-result.all-correct{background:var(--ok-light);color:#065F46;border:1px solid var(--ok)}
 .drag-result.partial{background:#FFFBEB;color:#78350F;border:1px solid #FDE68A}
 /* submit */
-.btn-submit-assessment{width:100%;padding:16px;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin-top:8px;transition:all .2s;background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;box-shadow:0 4px 16px rgba(13,45,107,.3)}
-.btn-submit-assessment:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,45,107,.4)}
+.btn-submit-assessment{width:100%;padding:16px;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin-top:8px;transition:all .2s;background:linear-gradient(135deg,#E11D48,#BE123C);color:#fff;box-shadow:0 4px 16px rgba(225,29,72,.3)}
+.btn-submit-assessment:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(225,29,72,.4)}
 .btn-submit-assessment:disabled{opacity:.5;cursor:default;transform:none}
 .assess-score-bar{background:#fff;border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow);border:2px solid var(--border);display:flex;align-items:center;gap:16px}
 .assess-score-circle{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;flex-shrink:0}
 .assess-score-label{font-size:13px;font-weight:700;color:var(--muted)}
+
+
+/* ===== FLASHCARDS ===== */
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:14px 0}
+.fc-card{height:130px;perspective:700px;cursor:pointer}
+.fc-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fc-card.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-front,.fc-back{position:absolute;inset:0;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;backface-visibility:hidden;text-align:center}
+.fc-front{background:linear-gradient(135deg,#F8FAFF,#EEF2FF);border:2px solid #C7D2FE}
+.fc-back{background:linear-gradient(135deg,#0D2D6B,#0A7E8C);transform:rotateY(180deg)}
+.fc-term{font-size:13.5px;font-weight:800;color:#3730A3;line-height:1.4}
+.fc-hint{font-size:10px;color:#94A3B8;margin-top:6px}
+.fc-def{font-size:12px;font-weight:600;color:#fff;line-height:1.5}
+.fc-section{background:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px;box-shadow:0 2px 12px rgba(30,41,59,.1);border:2px solid #E2E8F0}
+.fc-section h4{font-size:15px;font-weight:800;color:#0D2D6B;margin-bottom:4px}
+.fc-section .fc-sub{font-size:12px;color:#64748B;margin-bottom:14px}
+/* ===== MATCHING ===== */
+.match-wrap{background:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px;box-shadow:0 2px 12px rgba(30,41,59,.1);border:2px solid #E2E8F0}
+.match-wrap h4{font-size:15px;font-weight:800;color:#0D2D6B;margin-bottom:4px}
+.match-wrap .match-sub{font-size:12px;color:#64748B;margin-bottom:14px}
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.match-col-hdr{font-size:10px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;padding-bottom:6px}
+.match-terms,.match-defs{display:flex;flex-direction:column;gap:7px}
+.m-item{padding:9px 13px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:2px solid #E2E8F0;background:#fff;user-select:none;min-height:40px;display:flex;align-items:center;line-height:1.3}
+.m-item.term{background:#EEF2FF;border-color:#C7D2FE;color:#3730A3}
+.m-item.defn{background:#F8FAFC;color:#1E293B}
+.m-item.sel{outline:3px solid #0D2D6B;outline-offset:1px;transform:scale(1.02)}
+.m-item.ok{background:#ECFDF5!important;border-color:#10B981!important;color:#065F46!important;cursor:default;pointer-events:none}
+.m-item.err{background:#FEF2F2!important;border-color:#EF4444!important;color:#991B1B!important}
+.match-acts{display:flex;gap:10px}
+.match-res{margin-top:10px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:700;display:none}
+.match-res.show{display:block}
+.match-res.all-ok{background:#ECFDF5;color:#065F46;border:1px solid #10B981}
+.match-res.partial{background:#FFFBEB;color:#78350F;border:1px solid #FDE68A}
+/* ===== FIGURE QUESTION ===== */
+.fig-q{background:#fff;border-radius:14px;padding:18px 20px;margin-top:14px;border:2.5px dashed #818CF8;box-shadow:0 2px 12px rgba(30,41,59,.08)}
+.fig-q-label{font-size:10px;font-weight:800;color:#6366F1;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+/* ===== COLORFUL BUTTONS ===== */
+.btn-em{background:linear-gradient(135deg,#059669,#047857);color:#fff;border:none;border-radius:12px;padding:11px 20px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 3px 10px rgba(5,150,105,.3)}
+.btn-em:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(5,150,105,.4)}
+.btn-vi{background:linear-gradient(135deg,#7C3AED,#6D28D9);color:#fff;border:none;border-radius:12px;padding:11px 20px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 3px 10px rgba(124,58,237,.3)}
+.btn-vi:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(124,58,237,.4)}
+.btn-sk{background:linear-gradient(135deg,#0EA5E9,#0284C7);color:#fff;border:none;border-radius:12px;padding:11px 20px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 3px 10px rgba(14,165,233,.3)}
+.btn-sk:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(14,165,233,.4)}
+.btn-am{background:linear-gradient(135deg,#D97706,#B45309);color:#fff;border:none;border-radius:12px;padding:11px 20px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 3px 10px rgba(217,119,6,.3)}
+.btn-am:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(217,119,6,.4)}
+.btn-ro{background:linear-gradient(135deg,#E11D48,#BE123C);color:#fff;border:none;border-radius:12px;padding:11px 20px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 3px 10px rgba(225,29,72,.3)}
+.btn-ro:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(225,29,72,.4)}
+.btn-gh{background:transparent;border:2px solid #E2E8F0;border-radius:12px;padding:9px 16px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;color:#64748B;transition:all .2s}
+.btn-gh:hover{background:#F8FAFC;border-color:#94A3B8}
 
 /* ===== SUCCESS SCREEN ===== */
 #success{display:none;flex:1;align-items:center;justify-content:center;padding:24px}
@@ -263,8 +313,8 @@ tr:last-child td{border-bottom:none}
 .success-card h2{font-size:26px;font-weight:900;color:var(--navy);margin-bottom:8px}
 .success-card p{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:20px}
 .success-buttons{display:flex;flex-direction:column;gap:10px}
-.btn-secondary{padding:12px 24px;border:2px solid var(--border);border-radius:12px;background:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;color:var(--text);transition:all .2s}
-.btn-secondary:hover{background:var(--bg)}
+.btn-secondary{padding:12px 24px;border:none;border-radius:12px;background:linear-gradient(135deg,#0EA5E9,#0284C7);color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(14,165,233,.3)}
+.btn-secondary:hover{opacity:.9;transform:translateY(-1px)}
 
 /* ===== FLOATING DOCX PANEL ===== */
 #fab-wrap{position:fixed;bottom:20px;right:16px;z-index:200;display:none;flex-direction:column;align-items:flex-end;gap:8px}
@@ -274,11 +324,11 @@ tr:last-child td{border-bottom:none}
 #fab-panel.open{display:flex}
 #fab-panel-title{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
 .fab-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;border:none;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;width:100%;text-align:left}
-.fab-btn-docx{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}
+.fab-btn-docx{background:linear-gradient(135deg,#7C3AED,#6D28D9);color:#fff;box-shadow:0 2px 8px rgba(124,58,237,.3)}
 .fab-btn-docx:hover{opacity:.9;transform:translateY(-1px)}
-.fab-btn-url{background:var(--bg);color:var(--navy);border:2px solid var(--border)}
-.fab-btn-url:hover{background:#E0E7FF;border-color:#818CF8}
-.fab-btn-url a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:8px;width:100%}
+.fab-btn-url{background:linear-gradient(135deg,#0EA5E9,#0284C7);color:#fff;border:none}
+.fab-btn-url:hover{opacity:.9;transform:translateY(-1px)}
+.fab-btn-url a{color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;width:100%}
 
 /* ===== RESPONSIVE ===== */
 /* Mobile ≤480px */
@@ -394,6 +444,7 @@ tr:last-child td{border-bottom:none}
     <div class="home-header">
       <h1>CPOE &amp; CDSS Interactive Module</h1>
       <p>Informatics in Pharmacy Practice · School of Pharmacy, University of Jordan</p>
+      <p style="font-size:12px;opacity:.65;margin-top:2px">Dr. Samar J. Melhem · Assistant Professor, Digital Health &amp; Health Informatics · sa.melhem@ju.edu.jo</p>
       <div class="student-name" id="home-student-name"></div>
       <div style="margin-top:8px"><button onclick="resetStudent()" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;color:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;padding:4px 14px;cursor:pointer">Not you? Switch student</button></div>
     </div>
@@ -1007,79 +1058,134 @@ cdss:{
       title:'Arden Syntax',
       icon:'⌨️',
       content:`
-<div class="section-title-bar"><h2>⌨️ Arden Syntax — Clinical Decision Rules</h2></div>
+<div class="section-title-bar"><h2>⌨️ Arden Syntax &amp; MLMs — Reading Clinical Rules</h2></div>
 
-<div class="content-block">
-<h3>📋 What Is Arden Syntax?</h3>
-<p>Arden Syntax is a <strong>standardized language for encoding clinical decision rules</strong> as Medical Logic Modules (MLMs). Each MLM is a self-contained unit with exactly 5 mandatory slots.</p>
-
-<div class="table-wrap"><table>
-<thead><tr><th>Slot</th><th>Purpose</th><th>Example Content</th></tr></thead>
-<tbody>
-<tr><td><b>MAINTENANCE</b></td><td>Metadata: author, version, date, institution, purpose</td><td>author: Dr. Samar J. Melhem; version: 1.2; date: 2024-09-01</td></tr>
-<tr><td><b>DATA</b></td><td>Retrieves patient-specific variables from the EHR</td><td>creatinine_clearance := READ last CrCl from labs;</td></tr>
-<tr><td><b>EVOKE</b></td><td>Defines WHEN the MLM fires (trigger condition)</td><td>event("new_prescription_order") AND drug_name = "metformin"</td></tr>
-<tr><td><b>LOGIC</b></td><td>Houses the IF-THEN-ELSE Boolean expressions that evaluate data</td><td>IF creatinine_clearance &lt; 30 THEN conclude TRUE;</td></tr>
-<tr><td><b>ACTION</b></td><td>Specifies what happens when LOGIC evaluates to TRUE</td><td>WRITE alert("Metformin contraindicated: CrCl &lt; 30 mL/min");</td></tr>
-</tbody></table></div>
+<div class="content-block" style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border:2px solid #C4B5FD">
+<h3 style="color:#6D28D9;margin-bottom:8px">🎯 What You Need to Know</h3>
+<p>You are <strong>NOT required to write Arden Syntax code</strong>. You ARE required to: <strong>(1) read a rule and identify each slot</strong>, <strong>(2) trace the logic to predict the alert output</strong>, <strong>(3) spot errors in a flawed rule</strong>. Think of it like reading a clinical protocol, not writing one.</p>
 </div>
 
 <div class="content-block">
-<h3>📝 Worked Example — Gentamicin Renal Adjustment</h3>
-<div class="code-block"><span class="cm">/* Gentamicin Renal Dose Adjustment MLM */</span>
-<span class="kw">MAINTENANCE:</span>
-  title: <span class="str">"Gentamicin — Renal Dose Alert"</span>;
-  author: <span class="str">"Dr. Samar J. Melhem"</span>;
+<h3>📋 The 5 Mandatory Slots — At a Glance</h3>
+<p>An MLM (Medical Logic Module) is a portable, self-contained clinical rule with exactly 5 slots. <strong>Reading order: EVOKE → DATA → LOGIC → ACTION</strong>, then MAINTENANCE last (it is just admin).</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Slot</th><th>Role</th><th>Contains</th><th>Exam key</th></tr></thead>
+<tbody>
+<tr><td><b>MAINTENANCE</b></td><td>Admin</td><td>Title, author, version — metadata only</td><td>Does NOT affect execution</td></tr>
+<tr><td><b>DATA</b></td><td>Fetch patient data</td><td><code>serum_K := read last potassium</code></td><td>Uses := assignment</td></tr>
+<tr><td><b>EVOKE</b></td><td>Trigger</td><td><code>event("new_medication_order")</code></td><td>Without this = rule NEVER fires</td></tr>
+<tr><td><b>LOGIC</b></td><td>IF/ELSE brain</td><td>Boolean conditions; highest risk first</td><td>Must end: conclude TRUE or FALSE</td></tr>
+<tr><td><b>ACTION</b></td><td>Alert output</td><td>Alert text clinician sees</td><td>conclude TRUE fires this slot</td></tr>
+</tbody></table></div>
+<div class="highlight-box"><strong>Golden rule:</strong> conclude TRUE → ACTION fires (alert shown). conclude FALSE → silent, nothing displayed. <strong>Highest risk always in the first IF block.</strong></div>
+</div>
+
+${mkFlashcards([
+  {t:'MLM',d:'Medical Logic Module — one self-contained clinical rule. A CDSS runs hundreds of MLMs simultaneously, each checking a different condition.'},
+  {t:'EVOKE slot',d:'The trigger. Defines WHEN the rule activates. Without EVOKE, the rule NEVER runs — not even once.'},
+  {t:'DATA slot',d:'Fetches patient-specific variables from the EHR using := assignment. Example: serum_K := read last potassium.'},
+  {t:'LOGIC slot',d:'The IF/ELSE IF/ELSE chain. Evaluates patient data. Must end with conclude TRUE or conclude FALSE.'},
+  {t:'conclude TRUE',d:'Fires the ACTION slot — the clinician sees the alert. conclude FALSE = silent, no output to the screen.'},
+  {t:'ACTION slot',d:'What the clinician sees. Must name the specific drugs, state the severity tier, and give a clear recommended action.'},
+  {t:'Black box CDSS',d:'Non-knowledge-based CDSS (e.g. Random Forest). Cannot fully explain WHY it made a prediction — unlike transparent IF-THEN rules.'},
+  {t:'Alert fatigue',d:'Desensitisation caused by excessive low-value alerts — clinicians override everything reflexively, including critical alerts.'},
+])}
+
+<div class="content-block">
+<h3>🔬 Worked Example 1 — Gentamicin Renal Alert (Trace the Logic)</h3>
+<p>Read this complete MLM. A patient with <strong>CrCl = 22 mL/min</strong> is prescribed gentamicin. Follow each slot and predict the output.</p>
+<div class="code-block"><span class="kw">MAINTENANCE:</span>
+  title: <span class="str">"Gentamicin Renal Dosing Alert"</span>;
+  author: <span class="str">"Dr. Samar J. Melhem, School of Pharmacy, University of Jordan"</span>;
   version: <span class="str">"2.1"</span>;
 
-<span class="kw">DATA:</span>
+<span class="kw">DATA:</span>               <span class="cm">← Step 1: fetches CrCl from EHR</span>
   crcl := <span class="kw">READ</span> last creatinine_clearance;
-  gentamicin_ordered := <span class="kw">READ</span> current_order MATCHING <span class="str">"gentamicin"</span>;
 
-<span class="kw">EVOKE:</span>
+<span class="kw">EVOKE:</span>              <span class="cm">← Step 2: fires only when gentamicin is newly ordered</span>
   event(<span class="str">"new_medication_order"</span>) <span class="kw">AND</span> drug_name = <span class="str">"gentamicin"</span>;
 
-<span class="kw">LOGIC:</span>
-  <span class="kw">IF</span> crcl &lt; 30 <span class="kw">THEN</span> conclude <span class="kw">TRUE</span>;
-  <span class="kw">ELSE</span> conclude <span class="kw">FALSE</span>;
+<span class="kw">LOGIC:</span>              <span class="cm">← Step 3: checks CrCl threshold</span>
+  <span class="kw">IF</span> crcl &lt; 30 <span class="kw">THEN</span>
+    conclude <span class="kw">TRUE</span>;  <span class="cm">← fires ACTION</span>
+  <span class="kw">ELSE</span>
+    conclude <span class="kw">FALSE</span>; <span class="cm">← silent, no alert</span>
+  <span class="kw">ENDIF</span>
 
-<span class="kw">ACTION:</span>
-  <span class="kw">WRITE</span> alert(<span class="str">"⚠ Gentamicin: CrCl = {crcl} mL/min. Extend interval to Q36–48H. Order TDM level."</span>);</div>
+<span class="kw">ACTION:</span>             <span class="cm">← Step 4: only runs if conclude TRUE</span>
+  <span class="kw">WRITE</span> alert(<span class="str">"⚠ CrCl = {crcl} mL/min → Extend to Q36–48H. Order TDM trough."</span>);</div>
+
+<div class="info-grid">
+<div class="info-box" style="background:#F0FDF4;border-color:#6EE7B7"><div class="ib-icon">✅</div>
+<div class="ib-title">CrCl = 22 — trace it</div>
+<div class="ib-body">EVOKE fires (new gentamicin order). DATA: crcl = 22. LOGIC: 22 &lt; 30 → TRUE → ACTION fires. Alert: "CrCl = 22 → Q36–48H + TDM."</div></div>
+<div class="info-box" style="background:var(--tip-light);border-color:#BAE6FD"><div class="ib-icon">🔕</div>
+<div class="ib-title">CrCl = 55 — what happens?</div>
+<div class="ib-body">LOGIC: 55 &lt; 30 is FALSE → conclude FALSE → ACTION does NOT fire. Silent. Clinician sees nothing — this is correct behaviour.</div></div>
+</div>
 </div>
 
 <div class="content-block">
-<h3>💊 Worked Example — Warfarin + TMP/SMX Interaction</h3>
+<h3>🔬 Worked Example 2 — Warfarin + TMP/SMX (Spot the Design Flaw)</h3>
+<p>Read carefully. There is a design flaw — <strong>one slot is incomplete</strong>. The comment in the code marks it. Your task is to understand WHY it is a flaw and what the clinical consequence is.</p>
 <div class="code-block"><span class="kw">DATA:</span>
-  active_warfarin := <span class="kw">READ</span> active_medications MATCHING <span class="str">"warfarin"</span>;
-  new_order := <span class="kw">READ</span> current_order;
+  active_warfarin := <span class="kw">READ</span> active_medications <span class="kw">WHERE</span> class = <span class="str">"anticoagulant"</span>;
 
 <span class="kw">EVOKE:</span>
   event(<span class="str">"new_prescription_order"</span>) <span class="kw">AND</span> drug_name = <span class="str">"trimethoprim-sulfamethoxazole"</span>;
-  <span class="cm">/* Note: should ALSO include event("new_prescription_order") AND drug_name = "warfarin" */</span>
+  <span class="cm">/* ← FLAW: Only fires when TMP/SMX is newly ordered.
+     If patient is ALREADY on TMP/SMX and warfarin is added → rule NEVER fires! */</span>
 
 <span class="kw">LOGIC:</span>
-  <span class="kw">IF</span> active_warfarin &lt;&gt; NULL <span class="kw">THEN</span> conclude <span class="kw">TRUE</span>;
+  <span class="kw">IF</span> active_warfarin &lt;&gt; <span class="kw">NULL THEN</span> conclude <span class="kw">TRUE</span>;
 
 <span class="kw">ACTION:</span>
-  <span class="kw">WRITE</span> alert(<span class="str">"MAJOR DDI: TMP/SMX inhibits warfarin metabolism (CYP2C9). Anticipate INR elevation 2–4×. Monitor INR within 3–5 days. Consider dose reduction."</span>);</div>
-<div class="alert-box important"><div class="ab-icon">⚠️</div><div class="ab-text"><b>Design Flaw in the EVOKE above:</b> This MLM only triggers when TMP/SMX is newly ordered. If warfarin is started AFTER the patient is already on TMP/SMX, the alert never fires. Both orderings must be in the EVOKE trigger.</div></div>
+  <span class="kw">WRITE</span> alert(<span class="str">"MAJOR DDI: TMP/SMX inhibits warfarin via CYP2C9. Monitor INR 3–5 days."</span>);</div>
+
+<div class="alert-box important"><div class="ab-icon">🔧</div><div class="ab-text"><b>Fix — add a second EVOKE trigger:</b><br>
+<code>OR event("new_prescription_order") AND drug_name = "warfarin"</code><br>
+This catches the reverse scenario — warfarin ordered while patient is already on TMP/SMX.</div></div>
+</div>
+
+${mkMatch([
+  {t:'MAINTENANCE',d:'Contains title, author, version — admin only, does NOT affect rule execution'},
+  {t:'DATA slot',d:'Retrieves patient variables from EHR using := assignment'},
+  {t:'EVOKE slot',d:'Defines the trigger — without this, the rule never activates'},
+  {t:'LOGIC slot',d:'Contains the IF/ELSE chain; must end with conclude TRUE or conclude FALSE'},
+  {t:'ACTION slot',d:'Specifies the alert text the clinician sees when LOGIC = true'},
+],'arden1')}
+
+<div class="fig-q">
+<div class="fig-q-label">📊 Figure Interpretation — answer before the MCQs below</div>
+<p style="font-size:14px;font-weight:700;color:#1E293B;margin-bottom:6px">In Worked Example 2 above, the EVOKE slot only triggers when TMP/SMX is ordered. If a patient is ALREADY on TMP/SMX and warfarin is prescribed later — what is the consequence?</p>
+<p style="font-size:12px;color:#64748B">Think through the slot reading order: EVOKE → DATA → LOGIC → ACTION. If EVOKE never fires… what happens to every other slot?</p>
+<p style="font-size:12px;color:#7C3AED;font-weight:700;margin-top:8px">↓ Select your answer in MCQ 2 below to reveal the full explanation.</p>
 </div>`,
       questions:[
-        {q:"In Arden Syntax, the LOGIC slot is responsible for:",
-         opts:["Defining WHEN the MLM fires — the trigger condition that activates the module","Specifying the clinical action to take when the logic evaluates to TRUE","Housing the IF-THEN-ELSE Boolean expressions that evaluate patient-specific data against clinical thresholds","Retrieving patient variables from the EHR (labs, medications, demographics)"],
-         correct:2,
-         exp:"The <strong>LOGIC slot</strong> contains the IF-THEN-ELSE Boolean expressions that evaluate the variables retrieved by the DATA slot. For example: 'IF crcl &lt; 30 THEN conclude TRUE.' The EVOKE slot defines when to fire (trigger condition). The ACTION slot defines what to do when TRUE. The DATA slot retrieves patient data. The LOGIC slot is the evaluator — it outputs TRUE or FALSE which then triggers ACTION.",
-         tip:"Slot function map: MAINTENANCE=metadata · DATA=retrieves · EVOKE=when to fire · LOGIC=evaluates (if-then) · ACTION=what to do. The most commonly tested are EVOKE, LOGIC, and ACTION — know which does what."},
-        {q:"A clinical pharmacist writes an Arden Syntax MLM for potassium management. The MLM contains: 'IF serum_K > 5.9 THEN conclude TRUE; ELSE conclude FALSE.' This IF-THEN expression belongs in which slot?",
-         opts:["EVOKE slot — it defines the trigger condition that activates the MLM","DATA slot — it retrieves and processes the serum potassium value from the EHR","LOGIC slot — it evaluates patient data with a Boolean condition against a clinical threshold","ACTION slot — it defines what alert message to display when the condition is met"],
-         correct:2,
-         exp:"'IF serum_K &gt; 5.9 THEN conclude TRUE' is a <strong>Boolean evaluation expression</strong> — it compares a patient variable against a threshold and produces a TRUE/FALSE output. This is definitionally the LOGIC slot's function. The DATA slot would contain: 'serum_K := READ last potassium from labs' (retrieval, not evaluation). The EVOKE slot contains the trigger event. The ACTION slot contains the alert message to display if LOGIC = TRUE.",
-         tip:"If the code contains IF...THEN conclude TRUE/FALSE — it's LOGIC. If it contains READ or RETRIEVE — it's DATA. If it contains event() or timing conditions — it's EVOKE. If it contains WRITE alert() — it's ACTION."},
-        {q:"A pharmacist reviews the warfarin + TMP/SMX Arden Syntax MLM shown above. They notice it only fires when TMP/SMX is newly ordered, but NOT when warfarin is started in a patient already on TMP/SMX. Which slot requires modification to fix this design flaw?",
-         opts:["DATA slot — warfarin serum levels need to be added as a retrieved variable","EVOKE slot — a second trigger for new_warfarin_order must be added with an OR condition","LOGIC slot — an additional OR Boolean branch is needed to detect the reverse scenario","ACTION slot — the alert message needs bidirectional wording to cover both drug orderings"],
+        {q:"In the Gentamicin MLM (Example 1) — a patient has CrCl = 55 mL/min and gentamicin is ordered. What does the CDSS do?",
+         opts:["Fires the alert: 'CrCl = 55 mL/min — extend to Q36–48H'",
+               "Runs silently — conclude FALSE — no alert is shown to the clinician",
+               "Escalates automatically to a Tier 1 Hard Stop",
+               "Fires the MAINTENANCE slot to log a version audit event"],
          correct:1,
-         exp:"The problem is in the <strong>EVOKE slot</strong> — it only defines one trigger: 'event(new_prescription_order) AND drug_name = TMP/SMX.' To catch the reverse scenario (warfarin started after TMP/SMX), a second evoke condition is needed: 'OR event(new_prescription_order) AND drug_name = warfarin AND active_medications CONTAINS TMP/SMX.' The LOGIC slot's Boolean conditions are unchanged — the problem is purely about when the MLM fires, not what it evaluates.",
-         tip:"EVOKE controls WHEN the MLM activates. If an alert should fire for two different orderings of the same drug pair (A→B and B→A), BOTH must be in the EVOKE slot. Missing one direction = a silent safety gap."}
+         exp:"LOGIC evaluates: 55 &lt; 30 → FALSE → <strong>conclude FALSE</strong> → ACTION does NOT fire. The rule runs invisibly and the clinician sees nothing. This is correct behaviour — CrCl 55 does not require gentamicin dose adjustment.",
+         tip:"conclude FALSE = silent. No alert. No output. The rule checked, found no problem, and stayed quiet. Only conclude TRUE triggers the ACTION slot."},
+        {q:"In the Warfarin + TMP/SMX MLM (Example 2) — a patient is ALREADY on TMP/SMX and warfarin is now prescribed. What happens?",
+         opts:["The LOGIC slot fires because warfarin is a new active medication",
+               "The EVOKE slot does NOT trigger — the entire rule is bypassed — a dangerous safety gap exists",
+               "The DATA slot auto-detects TMP/SMX and escalates to Tier 1",
+               "The ACTION slot fires because active_warfarin was NULL before prescribing"],
+         correct:1,
+         exp:"The EVOKE slot only responds to new TMP/SMX orders. When warfarin is the new drug, <strong>EVOKE never fires</strong> — DATA, LOGIC, and ACTION are all completely bypassed. The interaction exists clinically, but the CDSS silently fails to warn. This is the design flaw — a real-world patient safety gap.",
+         tip:"EVOKE controls WHEN the rule runs. If the trigger is missing, the rule is bypassed entirely. LOGIC and ACTION are never reached. This is the most common cause of 'silent safety gaps' in real CDSS deployments."},
+        {q:"Which slot is responsible for storing the title, author name, and version number of an Arden Syntax MLM?",
+         opts:["DATA — patient and rule metadata are stored together",
+               "EVOKE — version control triggers determine when rules are updated",
+               "MAINTENANCE — metadata only, has NO effect on rule execution",
+               "LOGIC — the first line must declare the rule identity before IF/ELSE"],
+         correct:2,
+         exp:"<strong>MAINTENANCE</strong> contains all administrative metadata: title, author, institution, version, date. It is purely for documentation and audit trails. It has <strong>absolutely no effect on whether the rule fires or what it outputs</strong>. Always read MAINTENANCE last — it tells you nothing about the clinical behaviour.",
+         tip:"Slot shortcut: MAINTENANCE = admin. EVOKE = when. DATA = what data. LOGIC = decision. ACTION = output. Know this cold for exams and for reading real CDSS rules in clinical practice."}
       ]
     },
     {
@@ -1458,7 +1564,7 @@ function submitNotification(){
   if(!name||!id){ alert('Please enter your full name and student ID.'); return; }
   studentName = name; studentId = id;
   // persist so next visit skips the overlay
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({name, studentId:id})); } catch(e){}
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({name, studentId:id, notified:true})); } catch(e){}
   const btn = $('btn-notify'); btn.disabled=true; btn.textContent='Saving…';
   const payload = { type:'notification', name, studentId:id, timestamp:new Date().toISOString(), action:'Module opened' };
   fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});
@@ -1547,8 +1653,8 @@ function renderSection(idx){
   const navHTML = `<div class="section-nav">
     <div class="section-score">Section score: <b>${correct}/${qs.length}</b></div>
     ${!isLast
-      ? `<button class="btn-next-section" style="background:${p.color};color:#fff" onclick="jumpSection(${idx+1})" ${nextDisabled?'disabled style="opacity:.4;cursor:default"':''}>Next Section →</button>`
-      : `<button class="btn-next-section" style="background:var(--cdss);color:#fff" onclick="showAssessment()" ${nextDisabled?'disabled style="opacity:.4;cursor:default"':''}>📝 Go to Assessment →</button>`
+      ? `<button class="${p.id==='cpoe'?'btn-am':'btn-vi'}" onclick="jumpSection(${idx+1})" ${nextDisabled?'disabled style="opacity:.4;cursor:default"':''}>Next Section →</button>`
+      : `<button class="btn-em" onclick="showAssessment()" ${nextDisabled?'disabled style="opacity:.4;cursor:default"':''}>📝 Go to Assessment →</button>`
     }
   </div>`;
 
@@ -2028,6 +2134,55 @@ ${makeDocPara('University of Jordan — School of Pharmacy | Informatics in Phar
   setTimeout(()=>URL.revokeObjectURL(url),3000);
 }
 
+
+// ─── FLASHCARDS ───────────────────────────────────────────────────────────────
+function mkFlashcards(cards) {
+  return '<div class="fc-section"><h4>🃏 Flashcard Recall</h4><p class="fc-sub">Click each card to reveal the definition — test yourself before the MCQs.</p><div class="fc-grid">' +
+    cards.map(c => `<div class="fc-card" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front"><div class="fc-term">${c.t}</div><div class="fc-hint">👆 tap to flip</div></div>
+        <div class="fc-back"><div class="fc-def">${c.d}</div></div>
+      </div></div>`).join('') + '</div></div>';
+}
+// ─── MATCHING ────────────────────────────────────────────────────────────────
+const MS = {};
+function mkMatch(pairs, sid) {
+  MS[sid] = {selT:null, selD:null, pairs:{}, ok:{}, okD:{}};
+  const defs = [...pairs.map(p=>p.d)].sort(()=>Math.random()-.5);
+  MS[sid].defs = defs;
+  const enc = btoa(unescape(encodeURIComponent(JSON.stringify(pairs))));
+  const tH = pairs.map((p,i)=>`<div class="m-item term" id="mt${sid}${i}" onclick="mT('${sid}',${i})">${p.t}</div>`).join('');
+  const dH = defs.map((d,i)=>`<div class="m-item defn" id="md${sid}${i}" onclick="mD('${sid}',${i})">${d}</div>`).join('');
+  return `<div class="match-wrap"><h4>🔗 Matching Exercise</h4><p class="match-sub">Click a TERM (left) then its matching DEFINITION (right). Green = locked correct.</p>
+    <div class="match-cols"><div><div class="match-col-hdr">Term</div><div class="match-terms">${tH}</div></div>
+    <div><div class="match-col-hdr">Definition</div><div class="match-defs">${dH}</div></div></div>
+    <div class="match-acts">
+      <button class="btn-sk" onclick="mCheck('${sid}','${enc}')">Check ✓</button>
+      <button class="btn-gh" onclick="mReset('${sid}')">↺ Reset</button>
+    </div><div class="match-res" id="mr${sid}"></div></div>`;
+}
+function mT(sid,i){const s=MS[sid];if(!s||s.ok[i]!==undefined)return;s.selT=i;document.querySelectorAll(`[id^="mt${sid}"]`).forEach(e=>e.classList.remove('sel'));const el=document.getElementById(`mt${sid}${i}`);if(el)el.classList.add('sel');if(s.selD!==null)mTry(sid);}
+function mD(sid,i){const s=MS[sid];if(!s||s.okD[i])return;s.selD=i;document.querySelectorAll(`[id^="md${sid}"]`).forEach(e=>e.classList.remove('sel'));const el=document.getElementById(`md${sid}${i}`);if(el)el.classList.add('sel');if(s.selT!==null)mTry(sid);}
+function mTry(sid){const s=MS[sid];if(s.selT===null||s.selD===null)return;s.pairs[s.selT]=s.selD;document.querySelectorAll(`[id^="mt${sid}"],[id^="md${sid}"]`).forEach(e=>e.classList.remove('sel'));s.selT=null;s.selD=null;}
+function mCheck(sid,enc){
+  const s=MS[sid];if(!s)return;
+  const pairs=JSON.parse(decodeURIComponent(escape(atob(enc))));
+  let ok=0;
+  Object.entries(s.pairs||{}).forEach(([ti,di])=>{
+    const correct=pairs[+ti].d===s.defs[+di];
+    const te=document.getElementById(`mt${sid}${ti}`),de=document.getElementById(`md${sid}${di}`);
+    if(correct){ok++;s.ok[ti]=di;s.okD[di]=true;[te,de].forEach(e=>{if(e){e.classList.add('ok');e.style.pointerEvents='none';}});}
+    else{[te,de].forEach(e=>{if(e)e.classList.add('err');});setTimeout(()=>{[te,de].forEach(e=>{if(e)e.classList.remove('err');});delete s.pairs[ti];},1100);}
+  });
+  const res=document.getElementById('mr'+sid);
+  if(res){res.className='match-res show '+(ok===pairs.length?'all-ok':'partial');
+    res.innerHTML=ok===pairs.length?`🎉 Perfect — all ${pairs.length} matched!`:`${ok}/${pairs.length} correct. Keep going!`;}
+}
+function mReset(sid){
+  MS[sid]={selT:null,selD:null,pairs:{},ok:{},okD:{},defs:MS[sid]?.defs};
+  document.querySelectorAll(`[id^="mt${sid}"],[id^="md${sid}"]`).forEach(e=>{e.classList.remove('ok','err','sel');e.style.pointerEvents='';});
+  const res=document.getElementById('mr'+sid);if(res){res.className='match-res';res.innerHTML='';}
+}
 function resetStudent(){
   if(!confirm('This will clear your saved details and return to the registration screen.')) return;
   try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
