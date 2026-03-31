@@ -196,18 +196,65 @@ tr:last-child td{border-bottom:none}
 .btn-next-section{padding:12px 24px;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:all .2s}
 
 /* ===== ASSESSMENT ===== */
-.assessment-header{background:linear-gradient(135deg,#F0F4FF,#E0E7FF);border-radius:16px;padding:24px;margin-bottom:24px;border:2px solid #C7D2FE}
+.assessment-header{background:linear-gradient(135deg,#F0F4FF,#E0E7FF);border-radius:16px;padding:22px 24px;margin-bottom:20px;border:2px solid #C7D2FE}
 .assessment-header h2{font-size:22px;font-weight:900;color:var(--navy);margin-bottom:6px}
 .assessment-header p{font-size:14px;color:var(--muted);line-height:1.5}
-.open-q{background:#fff;border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow);border:2px solid var(--border)}
-.open-q .oq-num{font-size:12px;font-weight:800;text-transform:uppercase;color:var(--muted);letter-spacing:.5px;margin-bottom:6px}
-.open-q .oq-q{font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.5}
-.open-q textarea{width:100%;padding:12px;border:2px solid var(--border);border-radius:10px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--text);resize:vertical;min-height:90px;transition:border-color .2s;line-height:1.6}
-.open-q textarea:focus{outline:none;border-color:var(--navy)}
-.char-count{font-size:11px;color:var(--muted);text-align:right;margin-top:4px}
+/* assessment MCQ cards */
+.aq-card{background:#fff;border-radius:16px;padding:22px;margin-bottom:18px;box-shadow:var(--shadow);border:2px solid var(--border);transition:border-color .3s}
+.aq-card.aq-correct{border-color:var(--ok)}
+.aq-card.aq-wrong{border-color:var(--err)}
+.aq-num{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.aq-q{font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.55}
+.aq-tip-before{background:#FFFBEB;border:1px solid #FDE68A;border-radius:10px;padding:10px 13px;font-size:12.5px;font-weight:600;color:#78350F;margin-bottom:12px;line-height:1.5}
+.aq-tip-before::before{content:'💡 Tip: ';font-weight:800}
+.aq-opts{display:flex;flex-direction:column;gap:8px}
+.aq-btn{width:100%;text-align:left;padding:11px 14px;border:2px solid var(--border);border-radius:10px;background:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;transition:all .2s;display:flex;gap:10px;align-items:flex-start;line-height:1.45}
+.aq-btn:hover:not(:disabled){background:var(--bg);border-color:#CBD5E1}
+.aq-btn:disabled{cursor:default}
+.aq-btn .aq-letter{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:2px solid var(--border);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s}
+.aq-btn.aq-opt-correct{background:var(--ok-light);border-color:var(--ok)}
+.aq-btn.aq-opt-correct .aq-letter{background:var(--ok);border-color:var(--ok);color:#fff}
+.aq-btn.aq-opt-wrong{background:var(--err-light);border-color:var(--err)}
+.aq-btn.aq-opt-wrong .aq-letter{background:var(--err);border-color:var(--err);color:#fff}
+.aq-btn.aq-opt-missed .aq-letter{background:#F59E0B;border-color:#F59E0B;color:#fff}
+.aq-feedback{margin-top:14px;border-radius:12px;overflow:hidden;display:none}
+.aq-feedback.show{display:block}
+.aq-fb-header{padding:11px 15px;font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px}
+.aq-fb-header.correct{background:var(--ok-light);color:#065F46}
+.aq-fb-header.wrong{background:var(--err-light);color:#991B1B}
+.aq-fb-body{padding:12px 15px;background:#F8FAFC;font-size:13px;line-height:1.7;color:var(--text)}
+.aq-fb-tip{background:var(--tip-light);border:1px solid #BAE6FD;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;color:#0369A1;margin-top:8px}
+.aq-fb-tip::before{content:'📌 Key Takeaway: ';font-weight:800}
+/* drag-word exercise */
+.drag-section{background:#fff;border-radius:16px;padding:22px;margin-bottom:18px;box-shadow:var(--shadow);border:2px solid var(--border)}
+.drag-section h4{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.drag-section .drag-desc{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5}
+.drag-word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;padding:14px;background:var(--bg);border-radius:12px;border:2px dashed var(--border)}
+.drag-word{display:inline-block;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:grab;user-select:none;transition:all .2s;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.drag-word:active{cursor:grabbing;transform:scale(1.05)}
+.drag-word.used{opacity:.35;cursor:default;pointer-events:none}
+.drag-sentence{font-size:14px;font-weight:600;color:var(--text);line-height:2.4;margin-bottom:10px}
+.drag-blank{display:inline-block;min-width:110px;border-bottom:3px solid var(--border);margin:0 4px;padding:2px 8px;border-radius:6px 6px 0 0;text-align:center;font-weight:700;font-size:13px;color:var(--navy);background:#F8FAFC;transition:all .2s;cursor:pointer;vertical-align:middle}
+.drag-blank.filled{background:var(--cdss-light);border-color:var(--cdss);color:var(--cdss)}
+.drag-blank.correct-blank{background:var(--ok-light);border-color:var(--ok);color:var(--ok)}
+.drag-blank.wrong-blank{background:var(--err-light);border-color:var(--err);color:var(--err)}
+.drag-blank.dropping{background:#EDE9FE;border-color:var(--cdss)}
+.drag-actions{display:flex;gap:10px;margin-top:12px}
+.btn-check-drag{padding:11px 22px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s}
+.btn-check-drag:hover{transform:translateY(-1px)}
+.btn-reset-drag{padding:11px 18px;border:2px solid var(--border);border-radius:10px;background:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .2s}
+.btn-reset-drag:hover{background:var(--bg)}
+.drag-result{margin-top:12px;padding:12px 15px;border-radius:10px;font-size:13px;font-weight:700;display:none}
+.drag-result.show{display:block}
+.drag-result.all-correct{background:var(--ok-light);color:#065F46;border:1px solid var(--ok)}
+.drag-result.partial{background:#FFFBEB;color:#78350F;border:1px solid #FDE68A}
+/* submit */
 .btn-submit-assessment{width:100%;padding:16px;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin-top:8px;transition:all .2s;background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;box-shadow:0 4px 16px rgba(13,45,107,.3)}
 .btn-submit-assessment:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,45,107,.4)}
 .btn-submit-assessment:disabled{opacity:.5;cursor:default;transform:none}
+.assess-score-bar{background:#fff;border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow);border:2px solid var(--border);display:flex;align-items:center;gap:16px}
+.assess-score-circle{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;flex-shrink:0}
+.assess-score-label{font-size:13px;font-weight:700;color:var(--muted)}
 
 /* ===== SUCCESS SCREEN ===== */
 #success{display:none;flex:1;align-items:center;justify-content:center;padding:24px}
@@ -219,9 +266,74 @@ tr:last-child td{border-bottom:none}
 .btn-secondary{padding:12px 24px;border:2px solid var(--border);border-radius:12px;background:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;color:var(--text);transition:all .2s}
 .btn-secondary:hover{background:var(--bg)}
 
-/* ===== FAB DOCX ===== */
-#fab-docx{position:fixed;bottom:24px;right:24px;z-index:200;background:var(--navy);color:#fff;border:none;border-radius:50px;padding:13px 20px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(13,45,107,.4);display:flex;align-items:center;gap:8px;transition:all .2s}
-#fab-docx:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(13,45,107,.5)}
+/* ===== FLOATING DOCX PANEL ===== */
+#fab-wrap{position:fixed;bottom:20px;right:16px;z-index:200;display:none;flex-direction:column;align-items:flex-end;gap:8px}
+#fab-toggle{background:var(--navy);color:#fff;border:none;border-radius:50px;padding:11px 18px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(13,45,107,.4);display:flex;align-items:center;gap:7px;transition:all .2s;white-space:nowrap}
+#fab-toggle:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(13,45,107,.5)}
+#fab-panel{background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(13,45,107,.22);padding:16px;width:240px;border:2px solid var(--border);display:none;flex-direction:column;gap:8px}
+#fab-panel.open{display:flex}
+#fab-panel-title{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.fab-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;border:none;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;width:100%;text-align:left}
+.fab-btn-docx{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}
+.fab-btn-docx:hover{opacity:.9;transform:translateY(-1px)}
+.fab-btn-url{background:var(--bg);color:var(--navy);border:2px solid var(--border)}
+.fab-btn-url:hover{background:#E0E7FF;border-color:#818CF8}
+.fab-btn-url a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:8px;width:100%}
+
+/* ===== RESPONSIVE ===== */
+/* Mobile ≤480px */
+@media(max-width:480px){
+  .notify-card{padding:24px 18px}
+  .notify-parts{grid-template-columns:1fr 1fr}
+  .notify-title{font-size:21px}
+  .home-header h1{font-size:20px}
+  .home-header p{font-size:13px}
+  .home-body{padding:20px 12px}
+  .home-instructions{padding:16px}
+  .parts-grid{grid-template-columns:1fr;gap:14px}
+  .part-card-header{padding:18px 18px 12px}
+  .part-card-header .part-emoji{font-size:30px;top:16px;right:16px}
+  .part-card-header h2{font-size:18px}
+  .part-card-body{padding:0 18px 18px}
+  .module-content{padding:14px 10px}
+  .content-block{padding:16px}
+  .content-block h3{font-size:15px}
+  .info-grid{grid-template-columns:1fr}
+  .topbar-inner{padding:8px 10px;gap:8px}
+  .topbar-title{font-size:12px}
+  .topbar-timer{font-size:14px;padding:5px 10px;min-width:64px}
+  .tab-btn{padding:10px 10px;font-size:12px}
+  .mcq-card{padding:16px}
+  .mcq-q{font-size:13px}
+  .opt-btn{font-size:13px;padding:9px 11px}
+  .section-nav{flex-direction:column;gap:10px;text-align:center}
+  .btn-next-section{width:100%}
+  .assessment-header{padding:16px}
+  .assessment-header h2{font-size:18px}
+  #fab-wrap{bottom:14px;right:10px}
+  #fab-panel{width:210px}
+  .success-card{padding:24px 18px}
+  .table-wrap table{font-size:12px}
+  th,td{padding:7px 8px}
+  .code-block{font-size:11px;padding:12px}
+  .diagram-wrap svg{min-height:200px}
+}
+/* Tablet 481–768px */
+@media(min-width:481px) and (max-width:768px){
+  .notify-card{padding:32px 28px}
+  .home-header h1{font-size:24px}
+  .parts-grid{grid-template-columns:1fr 1fr}
+  .module-content{padding:18px 14px}
+  .info-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+  #fab-panel{width:230px}
+  .topbar-title{font-size:14px}
+}
+/* Laptop/Desktop ≥769px — already well handled, minor polish */
+@media(min-width:769px){
+  .notify-card{max-width:520px}
+  .home-body{max-width:860px}
+  .module-content{max-width:960px}
+}
 
 /* ===== MISC ===== */
 .highlight-box{background:linear-gradient(135deg,#FEF9EC,#FFF7D6);border:2px solid #FDE68A;border-radius:12px;padding:14px 16px;margin:12px 0;font-size:13px;font-weight:600;color:#78350F;line-height:1.6}
@@ -229,12 +341,7 @@ tr:last-child td{border-bottom:none}
 .pill-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
 .pill{font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
 
-/* Responsive */
-@media(max-width:640px){
-  .notify-parts{grid-template-columns:1fr}
-  .topbar-title{font-size:13px}
-  .mcq-q{font-size:14px}
-}
+/* legacy narrow fix kept for safety */
 </style>
 </head>
 <body>
@@ -248,8 +355,8 @@ tr:last-child td{border-bottom:none}
       <div class="dot" style="background:#F97316"></div>
       <span style="font-size:12px;font-weight:700;color:#64748B;margin-left:4px">Informatics in Pharmacy Practice · School of Pharmacy · University of Jordan</span>
     </div>
-    <h1 class="notify-title">Before You Begin</h1>
-    <p class="notify-sub">Register your attendance for this self-paced module. Your name and ID will be sent to Dr. Samar J. Melhem to confirm your participation.</p>
+    <h1 class="notify-title">Ready to Begin?</h1>
+    <p class="notify-sub">Enter your details below to register your participation. This module is self-paced — work through each section at your own speed.</p>
     <div class="notify-parts">
       <div class="notify-part cpoe">
         <div class="part-icon">🖥️</div>
@@ -270,8 +377,12 @@ tr:last-child td{border-bottom:none}
       <label for="inp-id">Student ID</label>
       <input type="text" id="inp-id" placeholder="e.g. 2021800123" autocomplete="off">
     </div>
-    <button class="btn-notify" id="btn-notify" onclick="submitNotification()">📩 Notify Dr. Samar &amp; Begin Module</button>
-    <div class="notify-success" id="notify-success">✅ Notification sent! Loading your module…</div>
+    <button class="btn-notify" id="btn-notify" onclick="submitNotification()">📚 Start Studying →</button>
+    <div class="notify-success" id="notify-success">✅ Registration saved! Loading your module…</div>
+    <div style="margin-top:16px;padding:12px 14px;background:#F0F4FF;border-radius:10px;border:1.5px solid #C7D2FE;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+      <a href="https://samarjmelhem-maker.github.io/CPOE-CDSS/" target="_blank" style="font-size:11.5px;font-weight:700;color:#0D2D6B;word-break:break-all;text-decoration:none;flex:1">🔗 samarjmelhem-maker.github.io/CPOE-CDSS/</a>
+      <button onclick="copyModuleURL()" style="flex-shrink:0;padding:5px 12px;border:1.5px solid #818CF8;border-radius:8px;background:#fff;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:#4338CA;cursor:pointer" id="copy-url-btn">Copy URL</button>
+    </div>
   </div>
 </div>
 
@@ -284,6 +395,7 @@ tr:last-child td{border-bottom:none}
       <h1>CPOE &amp; CDSS Interactive Module</h1>
       <p>Informatics in Pharmacy Practice · School of Pharmacy, University of Jordan</p>
       <div class="student-name" id="home-student-name"></div>
+      <div style="margin-top:8px"><button onclick="resetStudent()" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;color:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;padding:4px 14px;cursor:pointer">Not you? Switch student</button></div>
     </div>
     <div class="home-body">
       <div class="home-instructions">
@@ -291,8 +403,9 @@ tr:last-child td{border-bottom:none}
         <ul>
           <li>Read the concept summaries in each section, then answer the MCQs</li>
           <li>Click any option — immediate feedback with explanation and exam tips</li>
-          <li>Complete all MCQs to unlock the final Assessment section</li>
-          <li>Submit your assessment responses — Dr. Samar will send feedback within 24 hours</li>
+          <li>Complete all MCQs to unlock the Final Assessment section</li>
+          <li>Assessment: 4–6 MCQs with instant feedback + a drag-the-word exercise</li>
+          <li>Your MCQ score is shown live — submit when all questions are answered</li>
           <li>Download the reference DOCX anytime using the button at the bottom-right</li>
         </ul>
       </div>
@@ -379,21 +492,52 @@ tr:last-child td{border-bottom:none}
 
 </div>
 
-<!-- FAB: DOCX download -->
-<button id="fab-docx" onclick="downloadDocx()" style="display:none">📄 Download DOCX</button>
+<!-- FLOATING DOCX + URL PANEL -->
+<div id="fab-wrap">
+  <div id="fab-panel">
+    <div id="fab-panel-title">📚 Module Resources</div>
+    <button class="fab-btn fab-btn-docx" onclick="downloadDocx()">📄 Download Reference DOCX</button>
+    <button class="fab-btn fab-btn-url">
+      <a href="https://samarjmelhem-maker.github.io/CPOE-CDSS/" target="_blank">🔗 Open Module URL</a>
+    </button>
+    <button class="fab-btn fab-btn-url" onclick="copyModuleURL()" id="copy-fab-btn">📋 Copy Module URL</button>
+  </div>
+  <button id="fab-toggle" onclick="toggleFab()">📄 Resources <span id="fab-arrow">▲</span></button>
+</div>
 
 <script>
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6H75v_1aPdGDQ6dS-VEpTICN-x7L9NSTpgs_3Bd81omynJ59wpHLYWkXSjctiPTD5EA/exec';
+const STORAGE_KEY = 'ipp_student';
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
 let studentName = '', studentId = '';
 let currentPart = null, currentSection = 0;
-let qState = {}; // 'partId_sIdx_qIdx' → {selected, correct}
-let aState = {}; // assessment answers
+let qState = {};
+let aState = {};
 let timers = { cpoe: 1800, cdss: 5400 };
 let timerInt = null;
-let sectionDone = {}; // 'partId_sIdx' → bool
+let sectionDone = {};
+
+// ─── AUTO-LOGIN: skip overlay if already registered ───────────────────────────
+(function(){
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if(saved){
+      const s = JSON.parse(saved);
+      if(s.name && s.studentId){
+        studentName = s.name;
+        studentId   = s.studentId;
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('app').style.display     = 'flex';
+        // defer showHome until DOM is ready
+        window.addEventListener('DOMContentLoaded', ()=>showHome(), {once:true});
+        // if DOMContentLoaded already fired
+        if(document.readyState !== 'loading') showHome();
+      }
+    }
+  } catch(e){}
+})();
 
 // ─── CONTENT ─────────────────────────────────────────────────────────────────
 const PARTS = {
@@ -697,13 +841,79 @@ cpoe: {
     }
   ],
   assessment:{
-    title:'CPOE Assessment',
-    questions:[
-      {key:'cpoe_a1', q:'Design a complete corollary order set for a patient newly initiated on clozapine. List all required monitoring parameters, their frequency, and the clinical rationale for each.'},
-      {key:'cpoe_a2', q:'A 78-year-old patient on 12 active medications is admitted. The attending orders amiodarone. The CPOE system fires 6 simultaneous alerts. As the ward pharmacist, describe your governance response: which alerts would you prioritize, and what system-level recommendation would you make to the P&T Committee?'},
-      {key:'cpoe_a3', q:'CPOE goes down unexpectedly at 02:00 during a night shift. Outline the complete downtime protocol and the critical post-downtime reconciliation steps. Where does the greatest patient harm risk lie, and why?'},
-      {key:'cpoe_a4', q:'Compare the CPOE alert management requirements in a community pharmacy versus a 500-bed tertiary hospital. What governance differences would you expect, and why?'}
-    ]
+    title:'CPOE Final Assessment',
+    type:'mixed',
+    mcqs:[
+      {
+        key:'cpoe_a1',
+        q:'A patient is newly initiated on clozapine 200mg daily for treatment-resistant schizophrenia. Which corollary monitoring order is MANDATORY and must be built into the CPOE system to fire automatically with every clozapine prescription?',
+        tip:'Think about the most dangerous adverse effect of clozapine and what monitoring prevents patient death from it.',
+        opts:[
+          'LFTs (ALT, AST) weekly — hepatotoxicity monitoring',
+          'CBC with differential weekly — agranulocytosis detection (mandatory)',
+          'TSH and chest X-ray monthly — thyroid and pulmonary toxicity',
+          'INR and aPTT twice weekly — coagulation monitoring'
+        ],
+        correct:1,
+        exp:'Clozapine causes potentially fatal <strong>agranulocytosis</strong> (white blood cell destruction) in 1–2% of patients. A weekly CBC with differential is <strong>mandatory</strong> by international regulatory requirements — CPOE must auto-trigger this corollary order for every clozapine prescription. LFTs (A) are the corollary for statins. TSH + CXR (C) are corollaries for amiodarone. INR (D) applies to warfarin.',
+        tip2:'Clozapine → CBC weekly = the most exam-tested corollary pair. If agranulocytosis is missed, the patient can die from infection. This is why it is a mandatory, non-optional corollary — not just a suggestion.'
+      },
+      {
+        key:'cpoe_a2',
+        q:'A 78-year-old patient on 12 active medications is admitted and amiodarone is ordered. The CPOE fires 6 simultaneous alerts. As the ward pharmacist, which alert type must ALWAYS be addressed first regardless of all other factors?',
+        tip:'The Leapfrog hierarchy has a fixed top priority — recall which alert category is always ranked #1.',
+        opts:[
+          'Drug–drug interaction alert (DDI) — amiodarone has many serious interactions',
+          'Dose range alert — amiodarone dosing must be weight-adjusted in elderly patients',
+          'Drug–allergy interaction alert — this is always Tier 1 and evaluated first',
+          'Renal dose adjustment alert — reduced renal clearance in elderly patients'
+        ],
+        correct:2,
+        exp:'Per Leapfrog standards, <strong>drug–allergy interaction is ALWAYS ranked #1</strong> in the alert hierarchy, regardless of severity of other alerts. A documented allergy + ordered drug creates immediate anaphylaxis risk — this takes absolute priority before any DDI, dose, or renal alert is even evaluated. After confirming no allergy conflict, the pharmacist then works through remaining alerts in tier order.',
+        tip2:'Memorise: Drug-allergy = #1, always. Then contraindicated DDIs. Then important soft warnings. Even if 20 alerts fire simultaneously, check allergy first. This ordering is tested directly in exams.'
+      },
+      {
+        key:'cpoe_a3',
+        q:'CPOE goes down unexpectedly at 02:00 during a night shift. A nurse asks: "Can I give the heparin infusion that was ordered at midnight — it shows in the system as active?" What is the MOST appropriate response?',
+        tip:'Think about what happens to system data during downtime and the key reconciliation principle.',
+        opts:[
+          'Yes — the order was entered before downtime, so it is safe to administer',
+          'No — all orders must be rewritten on paper downtime forms and verified before any administration during CPOE outage',
+          'Only if a senior pharmacist verbally confirms the order over the phone',
+          'Yes, but document the administration on paper and enter it retrospectively when the system restores'
+        ],
+        correct:1,
+        exp:'During CPOE downtime, the established protocol requires <strong>immediate switch to pre-printed standardised paper downtime order sheets</strong>. Orders entered just before downtime may have partially transmitted or may not reflect the most current clinical picture. ALL active medications during downtime must be re-verified via paper backup. Administering based on the last known electronic record without paper verification is a patient safety risk — particularly for high-alert drugs like heparin.',
+        tip2:'Downtime protocol = Paper backup IMMEDIATELY + Verbal orders with read-back verification + Designated downtime coordinator. The most dangerous moment is NOT the downtime itself — it is the post-downtime reconciliation when orders from the paper period must be re-entered without omissions.'
+      },
+      {
+        key:'cpoe_a4',
+        q:'Which of the following BEST describes e-iatrogenesis in the context of CPOE?',
+        tip:'e-iatrogenesis is a specific term — the prefix "e" tells you something about the source of the harm.',
+        opts:[
+          'Harm caused by a prescriber entering the wrong drug name due to LASA confusion',
+          'Patient harm caused at least partially by a health IT application or its incorrect use',
+          'Harm resulting from failure to implement CPOE in a hospital setting',
+          'Errors caused by illegible handwriting on paper prescription charts'
+        ],
+        correct:1,
+        exp:'<strong>e-Iatrogenesis</strong> is defined as patient harm caused at least partially by a health IT application OR its incorrect use. The "e" stands for electronic — it specifically refers to technology-related harm. Examples: a nurse pre-documenting drug administration before giving it (IT misuse), wrong patient selection in a drop-down (IT design failure), copy-paste errors propagating discontinued medications (IT workflow issue). Option A is a LASA error (different concept). Option C is about not having CPOE. Option D is pre-digital handwriting error.',
+        tip2:'e-Iatrogenesis ≠ system crash. It includes ANY harm where the health IT system or its incorrect use was at least partially responsible. Classic exam scenarios: pre-charting, copy-paste, wrong patient selection from autocomplete.'
+      }
+    ],
+    drag:{
+      title:'Drag-the-Word — The 6 Mandatory CPOE Order Fields',
+      desc:'Drag the correct word into each blank to complete the 6 mandatory fields required before any CPOE order can be submitted. Click a word from the bank, then click the blank where it belongs.',
+      words:['Drug Selection','Dose & Units','Route','Frequency','Duration','Indication'],
+      sentences:[
+        { text:'Field 1: [BLANK] — e.g. Metronidazole 500mg Tablet. Ensures the correct formulary drug is selected and eliminates LASA errors.', answer:'Drug Selection' },
+        { text:'Field 2: [BLANK] — e.g. 500 mg (not 0.5g). Separate numeric value and unit prevents 10× dose errors and trailing-zero mistakes.', answer:'Dose & Units' },
+        { text:'Field 3: [BLANK] — e.g. PO (per os). Without this, an IV-only drug could be given orally — potentially fatal.', answer:'Route' },
+        { text:'Field 4: [BLANK] — e.g. Q8H. Defines how often and at what interval; prevents underdosing, overdosing, or toxic accumulation.', answer:'Frequency' },
+        { text:'Field 5: [BLANK] — e.g. 7 days with auto-stop. Prevents indefinite therapy; triggers automatic stop-order reminders.', answer:'Duration' },
+        { text:'Field 6: [BLANK] — e.g. Anaerobic infection. Required for pharmacy review; enables clinical appropriateness evaluation.', answer:'Indication' },
+      ]
+    }
   }
 },
 cdss:{
@@ -1112,15 +1322,106 @@ cdss:{
     }
   ],
   assessment:{
-    title:'CDSS Assessment',
-    questions:[
-      {key:'cdss_a1', q:'Write a complete Arden Syntax MLM (all 5 slots) for detecting metformin use in a patient with CrCl < 30 mL/min. Include realistic data retrieval, a precise LOGIC condition, and an actionable alert message.'},
-      {key:'cdss_a2', q:'Al-Amal Hospital has a 91% DDI alert override rate across its CDSS. Design a 4-step governance plan to reduce this rate without compromising patient safety. For each step, name the governance body responsible.'},
-      {key:'cdss_a3', q:'Compare knowledge-based and non-knowledge-based CDSS systems in terms of: transparency, updateability, performance with rare events, and regulatory considerations. Give one clinical pharmacy example of each type.'},
-      {key:'cdss_a4', q:'Critique the K⁺ MLM shown in Figure 3. Identify all errors, explain their clinical consequences, and rewrite the corrected LOGIC slot with appropriate thresholds for both hypo- and hyperkalaemia.'},
-      {key:'cdss_a5', q:'Redesign the alert interface shown in Figure 4 following best practice principles. Describe what information each alert should contain, how the four alerts should differ from each other, and what interactivity the interface should include.'},
-      {key:'cdss_a6', q:'A Random Forest ADR prediction model achieves 87% accuracy in training data but only 62% accuracy in real-world clinical deployment. What are the clinical safety implications of this performance gap, and what governance steps should the pharmacist recommend before clinical use?'}
-    ]
+    title:'CDSS Final Assessment',
+    type:'mixed',
+    mcqs:[
+      {
+        key:'cdss_a1',
+        q:'A hospital CDSS has a drug-drug interaction (DDI) alert override rate of 91%. A junior pharmacist suggests: "We should remove all DDI alerts to stop the workflow disruption." What is the MOST appropriate evidence-based response?',
+        tip:'The solution to alert fatigue is not suppression — it is improvement. Think about what a 91% override rate tells you about alert QUALITY, not alert QUANTITY.',
+        opts:[
+          'Agree — 91% override rate means the alerts are ineffective and should be removed',
+          'Disagree — upgrade all DDI alerts to Tier 1 Hard Stop to force clinician attention',
+          'Disagree — audit which specific DDI alerts have >70% override rates and redesign them to be patient-specific, tiered, and actionable',
+          'Agree — but only remove DDI alerts with >80% override rate and keep the rest'
+        ],
+        correct:2,
+        exp:'A 91% override rate signals <strong>alert fatigue from poor design</strong> — not that DDI alerts are unnecessary. The evidence-based solution is the P&T Committee governance approach: audit override logs, identify alerts with >70% override rates, and redesign them to be patient-specific (not generic), tiered (Tier 1–4), and actionable (clear next step). Removing alerts (A) creates patient safety gaps. Upgrading ALL to Hard Stop (B) would cause even worse workflow disruption and workarounds.',
+        tip2:'The 70% threshold is your governance rule: any alert overridden more than 70% of the time is poorly designed and must be reviewed. The goal is quality over quantity — fewer, better alerts save more lives than many ignored ones.'
+      },
+      {
+        key:'cdss_a2',
+        q:'In Arden Syntax, a pharmacist writes: "IF serum_K > 5.9 THEN conclude true; ELSE conclude false." Which slot does this code belong in, and what does "conclude true" trigger?',
+        tip:'There are 5 slots. Ask yourself: is this code retrieving data, defining a trigger, evaluating a condition, or outputting a result?',
+        opts:[
+          'DATA slot — it retrieves the serum potassium value from the EHR laboratory system',
+          'LOGIC slot — it evaluates patient data against a threshold; conclude true fires the ACTION slot',
+          'EVOKE slot — it defines the trigger condition that activates the entire MLM rule',
+          'ACTION slot — it specifies what alert message to display to the clinician'
+        ],
+        correct:1,
+        exp:'This IF-THEN-ELSE code with <strong>"conclude true/false"</strong> is definitively the <strong>LOGIC slot</strong> — it evaluates the serum potassium variable (retrieved in DATA) against a clinical threshold (5.9 mmol/L). When the LOGIC evaluates to <strong>conclude true</strong>, it fires the ACTION slot — which contains the alert message. Conclude false = silent, no output. The EVOKE slot would contain "event(new_lab_result)" or similar. The DATA slot would contain "serum_K := read last potassium".',
+        tip2:'Slot identification shortcut: IF...THEN conclude true/false = LOGIC. READ or := assignment = DATA. event() or timing condition = EVOKE. write alert() = ACTION. MAINTENANCE = title/version/author metadata only — never affects execution.'
+      },
+      {
+        key:'cdss_a3',
+        q:'A knowledge-based CDSS fires a Tier 2 HIGH ALERT for warfarin + TMP/SMX: "Major DDI — TMP/SMX inhibits warfarin metabolism via CYP2C9. Monitor INR within 3–5 days." The prescriber dismisses it with "clinically justified" and no further documentation. What is the pharmacist\'s MOST appropriate next step?',
+        tip:'An undocumented override of a Major DDI has both clinical AND medicolegal implications. What does the pharmacist\'s governance role require here?',
+        opts:[
+          'Accept the override — the prescriber has the authority to dismiss Tier 2 alerts',
+          'Contact the prescriber, request documented clinical justification, arrange INR monitoring in 3–5 days, and log the interaction in the patient record',
+          'Escalate immediately to the Medical Director — prescriber override of a DDI alert is always inappropriate',
+          'Suppress the alert for this patient to prevent future workflow interruptions'
+        ],
+        correct:1,
+        exp:'A Tier 2 (interruptive) alert can be overridden — but requires <strong>documented clinical reason</strong>. An undocumented override creates medicolegal risk: if the patient develops a supratherapeutic INR and bleeds, there is no audit trail showing the risk was considered. The pharmacist must: (1) contact prescriber for documentation, (2) clinically verify that concurrent use is justified, (3) arrange INR monitoring in 3–5 days, (4) document the interaction and monitoring plan. Suppressing the alert (D) removes a genuine safety net.',
+        tip2:'Remember: Tier 2 = can proceed with documented reason. The pharmacist\'s role is not to block the prescriber but to ensure the clinical reasoning is documented and monitoring is arranged. This is both a safety and medicolegal responsibility.'
+      },
+      {
+        key:'cdss_a4',
+        q:'A Random Forest model for ADR prediction is trained on 50,000 US hospital records and achieves 89% accuracy. The hospital in Amman, Jordan wants to implement it. Before deployment, which concern is MOST critical?',
+        tip:'Think about what "trained on US data" means for a Jordanian patient population — demographics, disease patterns, medications, and healthcare contexts may differ.',
+        opts:[
+          'The model uses too many decision trees — 100 trees is the maximum recommended for clinical use',
+          'The model may not generalise to a Jordanian population — training data demographics, disease patterns, and prescribing practices differ, risking biased predictions',
+          'Random Forest models cannot be used for ADR prediction — only for diagnosis',
+          'The 89% accuracy is insufficient — clinical CDSS requires >95% accuracy for deployment'
+        ],
+        correct:1,
+        exp:'This is the <strong>population generalisation problem</strong> — a fundamental limitation of non-knowledge-based CDSS. A model trained on US data reflects US demographics, disease prevalences, prescribing patterns, and patient outcomes. If the Jordanian population differs in genetics (e.g. CYP enzyme polymorphisms), disease burden, or medication use, the model\'s predictions will be biased or inaccurate. Regulatory bodies and clinical governance require <strong>local validation</strong> in the target population before deployment. The number of trees (A) is irrelevant. Accuracy thresholds (D) depend on clinical context, not a fixed number.',
+        tip2:'When evaluating any AI/ML CDSS: ask THREE questions — (1) What population was it trained on? (2) Has it been validated in our patient population? (3) What is the false-positive and false-negative rate in our context, and what is the clinical consequence of each error type?'
+      },
+      {
+        key:'cdss_a5',
+        q:'The CDSS alert interface shows four IDENTICAL red banners each reading: "Drug interaction detected — no further details." Which design principle is MOST critically violated?',
+        tip:'Think about what a pharmacist needs to DO when they see an alert — what information must be present for any action to be possible?',
+        opts:[
+          'Tiering — all four alerts should be displayed at different severity levels',
+          'Actionability — a well-designed alert must specify the exact drugs, interaction mechanism, severity tier, and a clear recommended clinical action',
+          'Auditability — the alerts are not linked to specific medication orders in the system audit trail',
+          'Frequency — four identical alerts violates the time-limited suppression rule of a maximum two repeat alerts'
+        ],
+        correct:1,
+        exp:'<strong>Actionability</strong> is the most critically violated principle. A CDSS alert must answer three questions: WHO is affected (specific patient + specific drugs), WHAT is the severity (Tier 1–4), and WHAT TO DO (explicit recommended action). "Drug interaction detected — no further details" answers none of these. The clinician cannot act, so they dismiss reflexively — guaranteeing alert fatigue. While tiering (A) is also violated, actionability is the foundational design failure.',
+        tip2:'The 3-element checklist for every alert: ① Specific drugs + patient values ② Severity tier ③ Clear recommended action. If any element is missing, the alert will be overridden without clinical reasoning. Design for action, not for awareness.'
+      },
+      {
+        key:'cdss_a6',
+        q:'Metformin is ordered for a 72-year-old patient. The CDSS retrieves a CrCl of 28 mL/min. Per the Arden Syntax MLM, the LOGIC slot evaluates: "IF CrCl < 30 THEN conclude true." What tier should this alert be and why?',
+        tip:'Is CrCl < 30 with metformin a relative contraindication (Tier 2) or an absolute contraindication (Tier 1)? Think about lactic acidosis risk.',
+        opts:[
+          'Tier 3 — Advisory. The risk is manageable with dose reduction to metformin 500mg OD.',
+          'Tier 2 — High Alert. The prescriber can proceed if they document clinical justification.',
+          'Tier 1 — Hard Stop. Metformin is absolutely contraindicated at CrCl < 30 due to life-threatening lactic acidosis risk.',
+          'Tier 4 — Passive information. A dosing table reference should be shown without interrupting the workflow.'
+        ],
+        correct:2,
+        exp:'Metformin with CrCl < 30 mL/min is an <strong>absolute contraindication</strong> — classified as Tier 1 Hard Stop. At this level, metformin accumulates due to impaired renal clearance, inhibiting mitochondrial complex I and causing lactic acidosis with up to 50% mortality. This is not a relative contraindication manageable by dose reduction. UK guidelines and FDA labelling both contraindicate metformin below CrCl 30. A Tier 2 soft warning would allow override — unacceptable for an absolute contraindication.',
+        tip2:'Tier 1 (Hard Stop) = immediate life-threatening, absolute contraindication, no safe clinical justification exists. Examples: anaphylaxis allergy + ordered drug, metformin + CrCl < 30, MAOIs + SSRIs, thalidomide in pregnancy. Never Tier 2 these scenarios.'
+      }
+    ],
+    drag:{
+      title:'Drag-the-Word — Arden Syntax: 5 Slots in Order',
+      desc:'Drag each Arden Syntax slot name into the correct position. Each slot has a specific function — match the slot to what it does.',
+      words:['MAINTENANCE','DATA','EVOKE','LOGIC','ACTION'],
+      sentences:[
+        { text:'Slot 1: [BLANK] — Contains the title, version, author, and institution. This is metadata only and does NOT affect rule execution.', answer:'MAINTENANCE' },
+        { text:'Slot 2: [BLANK] — Retrieves patient-specific variables from the EHR using structured queries (e.g. serum_K := read last potassium).', answer:'DATA' },
+        { text:'Slot 3: [BLANK] — Defines WHEN the rule fires. Without this, the rule NEVER activates. (e.g. event(new_medication_order)).', answer:'EVOKE' },
+        { text:'Slot 4: [BLANK] — Contains the IF/ELSE IF/ELSE chain. Must end with conclude true or conclude false. Highest risk goes FIRST.', answer:'LOGIC' },
+        { text:'Slot 5: [BLANK] — Specifies what the clinician sees: the alert message, recommendation, or order suggestion. Must be specific and actionable.', answer:'ACTION' },
+      ]
+    }
   }
 }
 };
@@ -1156,7 +1457,9 @@ function submitNotification(){
   const id = $('inp-id').value.trim();
   if(!name||!id){ alert('Please enter your full name and student ID.'); return; }
   studentName = name; studentId = id;
-  const btn = $('btn-notify'); btn.disabled=true; btn.textContent='Sending…';
+  // persist so next visit skips the overlay
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({name, studentId:id})); } catch(e){}
+  const btn = $('btn-notify'); btn.disabled=true; btn.textContent='Saving…';
   const payload = { type:'notification', name, studentId:id, timestamp:new Date().toISOString(), action:'Module opened' };
   fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});
   setTimeout(()=>{
@@ -1175,7 +1478,7 @@ function showHome(){
   $('module').style.display='none';
   $('success').style.display='none';
   $('home-student-name').textContent='Welcome, '+studentName+' 👋';
-  $('fab-docx').style.display='flex';
+  $('fab-wrap').style.display='flex';
   stopTimer();
 }
 
@@ -1191,7 +1494,7 @@ function startPart(partId){
   $('home').style.display='none';
   $('module').style.display='flex';
   $('success').style.display='none';
-  $('fab-docx').style.display='flex';
+  $('fab-wrap').style.display='flex';
   renderPartHeader();
   renderTabs();
   renderSection(0);
@@ -1312,59 +1615,286 @@ function updateProgress(){
   $('mod-progress').style.width = pct+'%';
 }
 
+// ─── ASSESSMENT STATE ─────────────────────────────────────────────────────────
+let dragState = {}; // drag: blank index → word placed
+
 // ─── ASSESSMENT ───────────────────────────────────────────────────────────────
 function showAssessment(){
   const p = PARTS[currentPart];
-  const qs = p.assessment.questions;
-  const questionsHTML = qs.map((q,i)=>`
-    <div class="open-q">
-      <div class="oq-num">Open-Ended Question ${i+1} of ${qs.length}</div>
-      <div class="oq-q">${q.q}</div>
-      <textarea id="oa-${q.key}" rows="4" placeholder="Write your response here…" oninput="this.nextElementSibling.textContent=this.value.length+' characters'">${aState[q.key]||''}</textarea>
-      <div class="char-count">${(aState[q.key]||'').length} characters</div>
-    </div>`).join('');
+  const a = p.assessment;
+
+  // score so far
+  const mcqTotal = a.mcqs.length;
+  const mcqDone  = a.mcqs.filter(q=>aState[q.key]!==undefined).length;
+  const mcqRight = a.mcqs.filter(q=>aState[q.key]?.correct).length;
+  const pct = mcqTotal > 0 ? Math.round(mcqRight/mcqTotal*100) : 0;
+  const scoreColor = pct>=80?'var(--ok)':pct>=50?'var(--amber, #F59E0B)':'var(--err)';
+
+  // score bar
+  const scoreHTML = mcqDone>0 ? `
+    <div class="assess-score-bar">
+      <div class="assess-score-circle" style="background:${scoreColor}22;color:${scoreColor};border:3px solid ${scoreColor}">${pct}%</div>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:var(--navy)">Assessment Progress</div>
+        <div class="assess-score-label">${mcqRight} correct out of ${mcqDone} attempted · ${mcqTotal-mcqDone} remaining</div>
+      </div>
+    </div>` : '';
+
+  // MCQs
+  const mcqHTML = a.mcqs.map((q,i)=>renderAssessmentMCQ(q,i,currentPart,a.mcqs.length)).join('');
+
+  // drag exercise
+  const dragHTML = renderDragExercise(a.drag, currentPart);
 
   $('section-content').innerHTML = `
     <div class="assessment-header">
-      <h2>📝 ${p.assessment.title}</h2>
-      <p>These open-ended questions require clinical reasoning and synthesis. Your responses will be reviewed by Dr. Samar J. Melhem, and personalised feedback will be sent to you within 24 hours. Write as comprehensively as you can.</p>
+      <h2>📝 ${a.title}</h2>
+      <p>Answer the MCQs — click any option to reveal the correct answer, full explanation, and a key takeaway. Then complete the drag-the-word exercise to test your recall of essential terminology.</p>
     </div>
-    ${questionsHTML}
-    <button class="btn-submit-assessment" onclick="submitAssessment('${currentPart}')">Submit Assessment →</button>`;
+    ${scoreHTML}
+    <div style="font-size:18px;font-weight:900;color:var(--navy);margin:4px 0 16px;display:flex;align-items:center;gap:8px">🎯 MCQ Questions <span style="font-size:13px;font-weight:600;color:var(--muted)">(${mcqDone}/${mcqTotal} answered)</span></div>
+    ${mcqHTML}
+    ${dragHTML}
+    <button class="btn-submit-assessment" onclick="submitAssessment('${currentPart}')">✅ Submit &amp; Complete →</button>`;
 
-  // Update tabs to show assessment is active
   $('tab-row').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   const lastTab = $('tab-row').lastElementChild;
   if(lastTab) lastTab.classList.add('active');
+  initDrag(currentPart);
+}
+
+function renderAssessmentMCQ(q, idx, partId, total){
+  const s = aState[q.key];
+  const answered = s !== undefined;
+  const cardClass = answered ? (s.correct ? 'aq-correct' : 'aq-wrong') : '';
+  const p = PARTS[partId];
+
+  const opts = q.opts.map((opt,oi)=>{
+    let cls='';
+    if(answered){
+      if(oi===q.correct) cls='aq-opt-correct';
+      else if(oi===s.selected) cls='aq-opt-wrong';
+    }
+    const dis = answered ? 'disabled' : '';
+    return `<button class="aq-btn ${cls}" ${dis} onclick="answerAssessmentMCQ('${partId}','${q.key}',${oi},${q.correct})">
+      <span class="aq-letter">${['A','B','C','D'][oi]}</span><span>${opt}</span>
+    </button>`;
+  }).join('');
+
+  const feedbackHTML = answered ? `
+    <div class="aq-feedback show">
+      <div class="aq-fb-header ${s.correct?'correct':'wrong'}">${s.correct?'✅ Correct!':'❌ Incorrect — see explanation'}</div>
+      <div class="aq-fb-body">
+        ${!s.correct?`<p style="margin-bottom:8px"><strong>Correct answer:</strong> ${['A','B','C','D'][q.correct]} — ${q.opts[q.correct]}</p>`:''}
+        <p>${q.exp}</p>
+        <div class="aq-fb-tip">${q.tip2}</div>
+      </div>
+    </div>` : '';
+
+  return `<div class="aq-card ${cardClass}" id="aqcard-${q.key}">
+    <div class="aq-num" style="color:${p.color}">Assessment Question ${idx+1} of ${total}</div>
+    <div class="aq-q">${q.q}</div>
+    <div class="aq-tip-before">${q.tip}</div>
+    <div class="aq-opts">${opts}</div>
+    ${feedbackHTML}
+  </div>`;
+}
+
+function answerAssessmentMCQ(partId, key, selected, correct){
+  if(aState[key]!==undefined) return;
+  aState[key] = {selected, correct: selected===correct};
+  showAssessment(); // re-render to show feedback and update score
+  setTimeout(()=>{
+    const el = document.getElementById('aqcard-'+key);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  },80);
+}
+
+function renderDragExercise(drag, partId){
+  const p = PARTS[partId];
+  const ds = dragState[partId] = dragState[partId] || {};
+  const wordColors = [
+    {bg:'#FFF7ED',color:p.color,border:'#FDBA74'},
+    {bg:'#F5F3FF',color:'#7C3AED',border:'#C4B5FD'},
+    {bg:'#ECFDF5',color:'#059669',border:'#6EE7B7'},
+    {bg:'#EFF6FF',color:'#2563EB',border:'#BFDBFE'},
+    {bg:'#FEF2F2',color:'#DC2626',border:'#FECACA'},
+    {bg:'#FFFBEB',color:'#D97706',border:'#FDE68A'},
+  ];
+
+  const usedWords = Object.values(ds);
+  const wordBankHTML = drag.words.map((w,wi)=>{
+    const c = wordColors[wi % wordColors.length];
+    const isUsed = usedWords.includes(w);
+    return `<span class="drag-word${isUsed?' used':''}" 
+      style="background:${c.bg};color:${c.color};border:2px solid ${c.border}"
+      data-word="${w}" data-part="${partId}"
+      onclick="selectDragWord(this)">${w}</span>`;
+  }).join('');
+
+  const sentencesHTML = drag.sentences.map((sen,si)=>{
+    const placed = ds[si];
+    const parts = sen.text.split('[BLANK]');
+    const blankClass = placed ? 'filled' : '';
+    return `<div class="drag-sentence">
+      ${parts[0]}<span class="drag-blank ${blankClass}" 
+        data-idx="${si}" data-part="${partId}"
+        onclick="clickBlank(this)">${placed || 'click to fill'}</span>${parts[1]||''}
+    </div>`;
+  }).join('');
+
+  return `<div class="drag-section" id="drag-${partId}">
+    <h4>🧩 ${drag.title}</h4>
+    <p class="drag-desc">${drag.desc}</p>
+    <div class="drag-word-bank" id="wordbank-${partId}">${wordBankHTML}</div>
+    <div id="drag-sentences-${partId}">${sentencesHTML}</div>
+    <div class="drag-actions">
+      <button class="btn-check-drag" onclick="checkDrag('${partId}')">Check Answers</button>
+      <button class="btn-reset-drag" onclick="resetDrag('${partId}')">↺ Reset</button>
+    </div>
+    <div class="drag-result" id="drag-result-${partId}"></div>
+  </div>`;
+}
+
+let selectedDragWord = null;
+
+function initDrag(partId){}
+
+function selectDragWord(el){
+  if(el.classList.contains('used')) return;
+  // deselect previous
+  document.querySelectorAll('.drag-word.selected-word').forEach(w=>{
+    w.style.outline='';
+    w.classList.remove('selected-word');
+  });
+  selectedDragWord = el.dataset.word;
+  el.style.outline='3px solid var(--navy)';
+  el.classList.add('selected-word');
+}
+
+function clickBlank(el){
+  const partId = el.dataset.part;
+  const idx = parseInt(el.dataset.idx);
+  if(!dragState[partId]) dragState[partId]={};
+  
+  if(selectedDragWord){
+    // place word
+    const prev = dragState[partId][idx];
+    dragState[partId][idx] = selectedDragWord;
+    // deselect
+    document.querySelectorAll('.drag-word.selected-word').forEach(w=>{
+      w.style.outline=''; w.classList.remove('selected-word');
+    });
+    selectedDragWord = null;
+    refreshDrag(partId);
+  } else if(dragState[partId][idx]){
+    // click filled blank to remove word
+    delete dragState[partId][idx];
+    refreshDrag(partId);
+  }
+}
+
+function refreshDrag(partId){
+  const p = PARTS[partId];
+  const a = p.assessment;
+  const ds = dragState[partId]||{};
+  const wordColors = [
+    {bg:'#FFF7ED',color:p.color,border:'#FDBA74'},
+    {bg:'#F5F3FF',color:'#7C3AED',border:'#C4B5FD'},
+    {bg:'#ECFDF5',color:'#059669',border:'#6EE7B7'},
+    {bg:'#EFF6FF',color:'#2563EB',border:'#BFDBFE'},
+    {bg:'#FEF2F2',color:'#DC2626',border:'#FECACA'},
+    {bg:'#FFFBEB',color:'#D97706',border:'#FDE68A'},
+  ];
+  const usedWords = Object.values(ds);
+  // update word bank
+  const wb = document.getElementById('wordbank-'+partId);
+  if(wb){
+    wb.querySelectorAll('.drag-word').forEach(w=>{
+      const isUsed = usedWords.includes(w.dataset.word);
+      w.classList.toggle('used', isUsed);
+    });
+  }
+  // update blanks
+  const sc = document.getElementById('drag-sentences-'+partId);
+  if(sc){
+    sc.querySelectorAll('.drag-blank').forEach(blank=>{
+      const idx = parseInt(blank.dataset.idx);
+      const placed = ds[idx];
+      blank.textContent = placed || 'click to fill';
+      blank.className = 'drag-blank' + (placed?' filled':'');
+    });
+  }
+}
+
+function checkDrag(partId){
+  const p = PARTS[partId];
+  const a = p.assessment;
+  const ds = dragState[partId]||{};
+  let correct=0, total=a.drag.sentences.length;
+  const sc = document.getElementById('drag-sentences-'+partId);
+  if(sc){
+    sc.querySelectorAll('.drag-blank').forEach(blank=>{
+      const idx = parseInt(blank.dataset.idx);
+      const placed = ds[idx];
+      const expected = a.drag.sentences[idx].answer;
+      if(placed===expected){ blank.classList.add('correct-blank'); correct++; }
+      else if(placed){ blank.classList.add('wrong-blank'); }
+    });
+  }
+  const result = document.getElementById('drag-result-'+partId);
+  if(result){
+    result.className = 'drag-result show ' + (correct===total?'all-correct':'partial');
+    result.innerHTML = correct===total
+      ? `🎉 Perfect! All ${total} answers correct. You know all the ${a.drag.title.split('—')[1]?.trim()||'terms'}.`
+      : `${correct}/${total} correct. Click ↺ Reset to try again, or hover a wrong blank to see the correct answer.`;
+  }
+}
+
+function resetDrag(partId){
+  dragState[partId]={};
+  selectedDragWord=null;
+  const result = document.getElementById('drag-result-'+partId);
+  if(result){ result.className='drag-result'; result.innerHTML=''; }
+  const sc = document.getElementById('drag-sentences-'+partId);
+  if(sc){
+    sc.querySelectorAll('.drag-blank').forEach(b=>{
+      b.className='drag-blank'; b.textContent='click to fill';
+    });
+  }
+  const wb = document.getElementById('wordbank-'+partId);
+  if(wb) wb.querySelectorAll('.drag-word').forEach(w=>{ w.classList.remove('used'); w.style.outline=''; });
 }
 
 function submitAssessment(partId){
   const p = PARTS[partId];
-  const qs = p.assessment.questions;
-  let allFilled = true;
-  qs.forEach(q=>{
-    const val = $(('oa-'+q.key)||'');
-    if(val) aState[q.key] = val.value;
-    if(!val||!val.value.trim()) allFilled = false;
-  });
-  if(!allFilled){ alert('Please answer all questions before submitting.'); return; }
+  const mcqs = p.assessment.mcqs;
+  const answered = mcqs.filter(q=>aState[q.key]!==undefined).length;
+  if(answered < mcqs.length){
+    alert(`Please answer all ${mcqs.length} MCQs before submitting. You have answered ${answered} so far.`);
+    return;
+  }
   const btn = document.querySelector('.btn-submit-assessment');
   if(btn){ btn.disabled=true; btn.textContent='Submitting…'; }
+  const correct = mcqs.filter(q=>aState[q.key]?.correct).length;
+  const pct = Math.round(correct/mcqs.length*100);
+  const dragResults = dragState[partId]||{};
   const scores = p.sections.reduce((acc,s,si)=>{
     const qs2=s.questions||[];
     const cor=qs2.filter((_,qi)=>{const k=`${partId}_${si}_${qi}`;return qState[k]&&qState[k].correct;}).length;
     acc[s.title]={correct:cor,total:qs2.length};
     return acc;
   },{});
+  scores['Final Assessment MCQ']={correct, total:mcqs.length};
   const answers = {};
-  qs.forEach(q=>{ answers[q.key]=$('oa-'+q.key)?.value||''; });
-  const payload = { type:'assessment', partId, partLabel:p.label, studentName, studentId, timestamp:new Date().toISOString(), scores, answers };
+  mcqs.forEach(q=>{ answers[q.key]=aState[q.key]?.correct?'Correct':'Incorrect'; });
+  const payload = { type:'assessment', partId, partLabel:p.label, studentName, studentId, timestamp:new Date().toISOString(), scores, answers, assessmentScore: pct+'%' };
   fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});
   stopTimer();
   setTimeout(()=>{
     $('module').style.display='none';
     $('success').style.display='flex';
-    $('success-msg').innerHTML = `<strong>Dear ${studentName},</strong><br><br>Dr. Samar J. Melhem has received your <strong>${p.label}</strong> submission. Thank you for your commitment to this learning material — your responses are now under review.<br><br>Personalised, constructive feedback will be sent to your registered email address within 24 hours. We appreciate your engagement with the Informatics in Pharmacy Practice module.<br><br><em>Dr. Samar J. Melhem<br>Assistant Professor, Digital Health &amp; Health Informatics<br>School of Pharmacy, University of Jordan<br>sa.melhem@ju.edu.jo | Office 225</em>`;
+    $('success-msg').innerHTML = `<strong>Dear ${studentName},</strong><br><br>Dr. Samar J. Melhem has received your <strong>${p.label}</strong> submission.<br><br>📊 <strong>Your MCQ score: ${correct}/${mcqs.length} (${pct}%)</strong><br><br>Thank you for your commitment to this learning material. Your submission has been recorded and Dr. Samar will review your results.<br><br>We appreciate your engagement with the Informatics in Pharmacy Practice module.<br><br><em>Dr. Samar J. Melhem<br>Assistant Professor, Digital Health &amp; Health Informatics<br>School of Pharmacy, University of Jordan<br>sa.melhem@ju.edu.jo | Office 225</em>`;
   },1000);
 }
 
@@ -1496,6 +2026,32 @@ ${makeDocPara('University of Jordan — School of Pharmacy | Informatics in Phar
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href=url; a.download='InformaticsinPharmacyPractice_CPOE_CDSS_Reference.docx'; a.click();
   setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+
+function resetStudent(){
+  if(!confirm('This will clear your saved details and return to the registration screen.')) return;
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+  location.reload();
+}
+
+// ─── FAB PANEL ────────────────────────────────────────────────────────────────
+let fabOpen = false;
+function toggleFab(){
+  fabOpen = !fabOpen;
+  const panel = $('fab-panel');
+  const arrow = $('fab-arrow');
+  panel.classList.toggle('open', fabOpen);
+  arrow.textContent = fabOpen ? '▼' : '▲';
+}
+
+// ─── COPY URL ─────────────────────────────────────────────────────────────────
+function copyModuleURL(){
+  const url = 'https://samarjmelhem-maker.github.io/CPOE-CDSS/';
+  navigator.clipboard.writeText(url).then(()=>{
+    ['copy-url-btn','copy-fab-btn'].forEach(id=>{
+      const btn = $(id); if(btn){ const orig=btn.textContent; btn.textContent='✅ Copied!'; setTimeout(()=>btn.textContent=orig,2000); }
+    });
+  }).catch(()=>{ prompt('Copy this URL:',url); });
 }
 
 // ─── ENTER KEY on notification ────────────────────────────────────────────────
